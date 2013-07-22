@@ -2,7 +2,7 @@
 
 position position::copy ()
 {
-	position new_pos();
+	position new_pos;
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -10,7 +10,7 @@ position position::copy ()
 			new_pos.board[i][j] = board[i][j];
 		}
 	}
-	return 5;//new_pos;
+	return new_pos;
 }
 
 void position::move(int x1, int y1, int x2, int y2)
@@ -43,6 +43,7 @@ void position::initialize ()
 
 std::vector<position> position::valid_moves (bool player) // player: 0 = black/top/positive; 1 = white/bottom/negative
 {
+	bool flag;
 	std::vector<position> list;
 	int o = !player * 2 + 1; // o = +1 for player 0 or top or positive, -1 for  player 1 or bottom or negative
 	for (int i = 0; i < 10; i++)
@@ -296,7 +297,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 					}
 					break;
 				case 6: //cannon
-					bool flag = true;
+					flag = true;
 					for (int k = 1; k <= 9; k++)
 					{
 						if ((flag) && (i + k <= 9) && (board[i + k][j] == 0))
@@ -311,7 +312,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 						}
 						else if ((!flag) && (i + k <= 9) && (board[i + k][j] == 0))
 						{
-							continue
+							continue;
 						}
 						else if ((!flag) && (i + k <= 9) && (board[i + k][j] != 0))
 						{
@@ -325,7 +326,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 							break;
 						}
 					}
-					flag = true
+					flag = true;
 					for (int k = 1; k <= 9; k++)
 					{
 						if ((i - k >= 0) && (board[i - k][j] == 0))
@@ -340,7 +341,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 						}
 						else if ((!flag) && (i - k <= 9) && (board[i - k][j] == 0))
 						{
-							continue
+							continue;
 						}
 						else if ((!flag) && (i - k <= 9) && (board[i - k][j] != 0))
 						{
@@ -369,7 +370,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 						}
 						else if ((!flag) && (j + k <= 8) && (board[i][j + k] == 0))
 						{
-							continue
+							continue;
 						}
 						else if ((!flag) && (j + k <= 8) && (board[i][j + k] != 0))
 						{
@@ -398,7 +399,7 @@ std::vector<position> position::valid_moves (bool player) // player: 0 = black/t
 						}
 						else if ((!flag) && (j - k <= 8) && (board[i][j - k] == 0))
 						{
-							continue
+							continue;
 						}
 						else if ((!flag) && (j - k <= 8) && (board[i][j - k] != 0))
 						{

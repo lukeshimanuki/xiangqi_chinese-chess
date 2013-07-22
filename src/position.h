@@ -36,3 +36,5 @@ public:
 	
 	position ();
 };
+
+#endif
