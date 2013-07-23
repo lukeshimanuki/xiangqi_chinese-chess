@@ -34,8 +34,6 @@ public:
 	
 	double value ();
 	
-	void draw ();
-	
 	position ();
 };
 

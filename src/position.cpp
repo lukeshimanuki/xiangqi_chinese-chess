@@ -60,32 +60,6 @@ double position::value ()
 	return valid_moves(0).size() / valid_moves(1).size();
 }
 
-void position::draw ()
-{
-	for (int i = 0; i < 0; i++)
-	{
-		std::cout<<'\n';
-	}
-	for (int i = 0; i < 10; i ++)
-	{
-		for (int j = 0; j < 9; j ++)
-		{
-			std::cout << '[';
-			if (board[i][j] > 0)
-			{
-				std::cout << '+';
-			}
-			if (board[i][j] == 0)
-			{
-				std::cout<<'0';
-			}
-			std::cout << board[i][j] << ']';
-		}
-		std::cout<<'\n';
-	}
-	std::cout << "\n\n";
-}
-
 position::position ()
 {
 	for (int i = 0; i < 10; i++)

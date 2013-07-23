@@ -1,4 +1,5 @@
 #include "position.h"
+#include "io.h"
 
 int main (int argc, char **argv)
 {
@@ -12,13 +13,13 @@ int main (int argc, char **argv)
 	pos.board[1][4] = -7;
 	pos.board[4][1] = -7;
 	pos.board[4][7] = -7;*/
-//	pos.initialize();
+	pos.initialize();
 /*	std::cout<<pos.valid_moves(0).size()<<'\n';
 	std::cout<<pos.set_valid_moves(0).size()<<'\n';
 	std::vector<position> val_pos = pos.set_valid_moves(0);
 	for (int i = 0; i < val_pos.size(); i++)
-	{
-		val_pos[i].draw();
-	}
 	std::cout<<pos.value()<<'\n';*/
+	textio tio;
+	tio.draw(pos);
+	tio.input();
 }
