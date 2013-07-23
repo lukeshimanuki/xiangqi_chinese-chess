@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS  =
 LDFLAGS =
-NAME = xiangqi_chinese-chess
+NAME = xiangqi
 
 all: xiangqi_chinese-chess
 

@@ -20,13 +20,15 @@ public:
 	 */
 	int board[10][9];
 	
+	std::vector<position> list;
+	
 	position copy ();
 	
 	void move(int x1, int y1, int x2, int y2);
 	
 	void initialize ();
 	
-	std::vector<position> valid_moves (bool player);
+	void valid_moves (bool player);
 	
 	int valid_moves_count (bool player);
 	
