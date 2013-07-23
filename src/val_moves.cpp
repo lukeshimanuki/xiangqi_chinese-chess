@@ -1,10 +1,10 @@
 #include "position.h"
 
-std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 = black/top/positive; 1 = white/bottom/negative
+std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative
 {
 	std::vector<std::vector<int> > val_moves;
 	bool flag;
-	int o = !player * 2 - 1; // o = +1 for player 0 or top or positive, -1 for  player 1 or bottom or negative
+	int o = !p * 2 - 1; // o = +1 for p 0 or top or positive, -1 for  p 1 or bottom or negative
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 9; j ++)
@@ -20,7 +20,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 							{
 								continue;
 							}
-							if ((!player) && (i + k <= 2) && (i + k >= 0) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on top
+							if ((!p) && (i + k <= 2) && (i + k >= 0) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on top
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -29,7 +29,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 								list.push_back(j + l);
 								val_moves.push_back(list);
 							}
-							else if ((player) && (i + k >= 7) && (i + k <= 9) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on bottom
+							else if ((p) && (i + k >= 7) && (i + k <= 9) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on bottom
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -43,7 +43,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 					// flying general move
 					for (int k = 0; k <= 9; k++)
 					{
-						if ((!player) && (i + k <= 9)) //if on top
+						if ((!p) && (i + k <= 9)) //if on top
 						{
 							if (board[i + k][j] == -1)
 							{
@@ -63,7 +63,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 								break;
 							}
 						}
-						if ((player) && (i - k >= 0)) //if on bottom
+						if ((p) && (i - k >= 0)) //if on bottom
 							if (board[i - k][j] == 1)
 							{
 								std::vector<int> list;
@@ -88,7 +88,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 					{
 						for (int l = -1; l <= 1; l += 2)
 						{
-							if ((!player) && (i + k <= 2) && (i + k >= 0) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on top
+							if ((!p) && (i + k <= 2) && (i + k >= 0) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on top
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -97,7 +97,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 								list.push_back(j + l);
 								val_moves.push_back(list);
 							}
-							else if ((player) && (i + k >= 7) && (i + k <= 9) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on bottom
+							else if ((p) && (i + k >= 7) && (i + k <= 9) && (j + l >= 3) && (j + l <= 5) && (board[i + k][j + l] * o <= 0)) //if on bottom
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -114,7 +114,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 					{
 						for (int l = -2; l <= 2; l += 4)
 						{
-							if ((!player) && (board[i + k / 2][j + l / 2] == 0) && (i + k <= 4) && (i + k >= 0) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on top
+							if ((!p) && (board[i + k / 2][j + l / 2] == 0) && (i + k <= 4) && (i + k >= 0) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on top
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -123,7 +123,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 								list.push_back(j + l);
 								val_moves.push_back(list);
 							}
-							else if ((!player) && (board[i + k / 2][j + l / 2] == 0) && (i + k >= 5) && (i + k <= 9) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on bottom
+							else if ((!p) && (board[i + k / 2][j + l / 2] == 0) && (i + k >= 5) && (i + k <= 9) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on bottom
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -479,7 +479,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 						list.push_back(j);
 						val_moves.push_back(list);
 					}
-					if ((((!player) && (i >= 5)) || ((player) && (i <= 4))) && (j + 1 <= 8) && (j + 1 >= 0) && (board[i][j + 1]  * o <= 0))
+					if ((((!p) && (i >= 5)) || ((p) && (i <= 4))) && (j + 1 <= 8) && (j + 1 >= 0) && (board[i][j + 1]  * o <= 0))
 					{
 						std::vector<int> list;
 						list.push_back(i);
@@ -488,7 +488,7 @@ std::vector<std::vector<int> > position::valid_moves (bool player) // player: 0 
 						list.push_back(j + 1);
 						val_moves.push_back(list);
 					}
-					if ((((!player) && (i >= 5)) || ((player) && (i <= 4))) && (j - 1 <= 8) && (j - 1 >= 0) && (board[i][j - 1]  * o <= 0))
+					if ((((!p) && (i >= 5)) || ((p) && (i <= 4))) && (j - 1 <= 8) && (j - 1 >= 0) && (board[i][j - 1]  * o <= 0))
 					{
 						std::vector<int> list;
 						list.push_back(i);

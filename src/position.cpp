@@ -42,10 +42,10 @@ void position::initialize ()
 	}
 }
 
-std::vector<position> position::set_valid_moves (bool player)
+std::vector<position> position::set_valid_moves (bool p)
 {
 	std::vector<position> val_pos;
-	std::vector<std::vector<int> > val_moves = valid_moves(player);
+	std::vector<std::vector<int> > val_moves = valid_moves(p);
 	for (int i = 0; i < val_moves.size(); i++)
 	{
 		position new_pos = copy();
@@ -53,6 +53,19 @@ std::vector<position> position::set_valid_moves (bool player)
 		val_pos.push_back(new_pos);
 	}
 	return val_pos;
+}
+
+bool position::is_valid (int x1, int y1, int x2, int y2, bool p)
+{
+	std::vector<std::vector<int> > list = valid_moves (p);
+	for (int i = 0; i < list.size(); i ++)
+	{
+		if ((x1 == list[i][0]) && (y1 == list[i][1]) && (x2 == list[i][2]) && (y2 == list[i][3]))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 double position::value ()

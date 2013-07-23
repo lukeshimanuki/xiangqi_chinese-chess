@@ -1,5 +1,4 @@
 #include "io.h"
-#include "position.h"
 #include <iostream>
 
 void textio::draw (position &pos)
@@ -28,11 +27,24 @@ void textio::draw (position &pos)
 	std::cout << "\n\n";
 }
 
-int textio::input ()
+int textio::innum ()
 {
 	int a;
 	std::cin>>a;
 	return a;
+}
+
+void textio::message (std::string a)
+{
+	std::cout<<a;
+}
+
+std::vector<int> textio::choose_point ()
+{
+	std::vector<int> point;
+	point.push_back(innum());
+	point.push_back(innum());
+	return point;
 }
 
 textio::textio()

@@ -32,6 +32,8 @@ public:
 	
 	std::vector<position> set_valid_moves (bool player);
 	
+	bool is_valid (int x1, int y1, int x2, int y2, bool p);
+	
 	double value ();
 	
 	position ();

@@ -1,5 +1,8 @@
 #include "position.h"
 #include "io.h"
+#include "player.h"
+
+#include <iostream>
 
 int main (int argc, char **argv)
 {
@@ -19,7 +22,7 @@ int main (int argc, char **argv)
 	std::vector<position> val_pos = pos.set_valid_moves(0);
 	for (int i = 0; i < val_pos.size(); i++)
 	std::cout<<pos.value()<<'\n';*/
-	textio tio;
-	tio.draw(pos);
-	tio.input();
+	person p;
+	p.set_io(0);
+	p.choose_move(pos, 0);
 }
