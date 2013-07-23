@@ -11,7 +11,7 @@ xiangqi_chinese-chess: main.o position.o
 main.o: src/main.cpp
 	$(CC) -c $(CFLAGS) $<
 
-position.o: src/position.cpp src/position.h
+position.o: src/position.cpp src/val_moves.cpp src/position.h
 	$(CC) -c $(CFLAGS) $<
 
 .PHONY: clean cleanest
