@@ -20,7 +20,7 @@ public:
 	 */
 	int board[10][9];
 	
-	std::vector<position> list;
+	std::vector<position> val_pos;
 	
 	position copy ();
 	
@@ -28,9 +28,9 @@ public:
 	
 	void initialize ();
 	
-	void valid_moves (bool player);
+	std::vector<std::vector<int> > valid_moves (bool player);
 	
-	int valid_moves_count (bool player);
+	std::vector<position> set_valid_moves (bool player);
 	
 	double value ();
 	
