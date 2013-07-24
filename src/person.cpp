@@ -2,22 +2,21 @@
 
 std::vector<int> person::choose_move (position &pos, bool p)
 {
-	in_out[io_type].draw(pos);
-	in_out[io_type].message("You are ");
+	draw(pos);
+	message("You are ");
 	if (p)
 	{	
-		in_out[io_type].message("red");
+		message("red");
 	}
 	else
 	{
-		in_out[io_type].message("black");
+		message("black");
 	}
-	in_out[io_type].message(".\n\nWhich piece do you want to move?\n");
-	std::vector<int> o = in_out[io_type].choose_point();
-	in_out[io_type].message("\nWhere do you want to move it?\n");
-	std::vector<int> n = in_out[io_type].choose_point();
+	message(".\n\nWhich piece do you want to move?\n");
+	std::vector<int> o = choose_point();
+	message("\nWhere do you want to move it?\n");
+	std::vector<int> n = choose_point();
 	std::vector<int> m;
-std::cout<<"hi\n\n";
 	if (pos.is_valid(o[0], o[1], n[0], n[1], p))
 	{
 		m.push_back(o[0]);
@@ -28,7 +27,7 @@ std::cout<<"hi\n\n";
 	}
 	else
 	{
-		in_out[io_type].message("\nPlease choose a valid move.\n");
+		message("\nPlease choose a valid move.\n");
 		return choose_move(pos, p);
 	}
 }
@@ -38,8 +37,44 @@ void person::set_io (int a)
 	io_type = a;
 }
 
-person::person ()
+void person::draw (position &pos)
 {
 	textio tio;
-	in_out.push_back(tio);
+	switch (io_type)
+	{
+		case 0:
+			tio.draw(pos);
+			break;
+		default:
+			break;
+	}
+}
+
+void person::message (std::string a)
+{
+	textio tio;
+	switch (io_type)
+	{
+		case 0:
+			tio.message(a);
+			break;
+		default:
+			break;
+	}
+}
+
+std::vector<int> person::choose_point ()
+{
+	textio tio;
+	switch (io_type)
+	{
+		case 0:
+			return tio.choose_point();
+		default:
+			break;
+	}
+}
+
+person::person ()
+{
 }

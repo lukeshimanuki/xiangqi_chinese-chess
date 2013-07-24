@@ -21,8 +21,13 @@ class person : public player
 public:
 	int io_type; // 0 = text
 	void set_io(int a);
-	std::vector<io> in_out;
 	std::vector<int> choose_move (position &pos, bool p);
+	
+	// io
+	void message(std::string a);
+	void draw(position &pos);
+	std::vector<int> choose_point ();
+	
 	person ();
 };
 
