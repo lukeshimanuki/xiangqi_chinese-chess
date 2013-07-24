@@ -14,13 +14,17 @@ void textio::draw (position &pos)
 			std::cout << '[';
 			if (pos.board[i][j] > 0)
 			{
-				std::cout << '+';
+				std::cout << '+'<<pos.board[i][j];
 			}
 			if (pos.board[i][j] == 0)
 			{
-				std::cout<<'0';
+				std::cout<<"  ";
 			}
-			std::cout << pos.board[i][j] << ']';
+			if (pos.board[i][j] < 0)
+			{
+				std::cout<<pos.board[i][j];
+			}
+			std::cout<<']';
 		}
 		std::cout<<'\n';
 	}
