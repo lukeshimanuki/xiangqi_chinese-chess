@@ -27,7 +27,7 @@ int main (int argc, char **argv)
 	p.set_io(0);
 	p.choose_move(pos, 0);*/
 	game g;
-	g.set_type(true, true);
-	g.initialize();
+	g.set_type(0,1);
+	g.initialize(1);
 	g.play();
 }

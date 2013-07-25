@@ -34,7 +34,14 @@ public:
 class computer : public player
 {
 public:
+	int depth;
+
+	void set_depth(int a);
+
+	double recurse_val(position &pos, bool p, bool t, int d);
+
 	std::vector<int> choose_move (position &pos, bool p);
+
 	computer ();
 };
 
