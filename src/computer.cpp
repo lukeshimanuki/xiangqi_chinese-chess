@@ -29,11 +29,16 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 double computer::recurse_val(position &pos, bool p, bool t, int d)
 {
 	std::vector<std::vector<int> > val = pos.valid_moves(t);
+	double w = 100000000; //large number to indicate win/loss
 	if (p == t) // if player's turn: take best case
 	{
+		if (val.size() == 0) //you have no moves
+		{
+			return (double) 1 / w; // you lose, so very bad position
+		}
 		if (d == 0) //reached end of recursion
 		{
-			double max = 0;
+			double max = -1;
 			for (int i = 0; i < val.size(); i ++)
 			{
 				position new_pos = pos;
@@ -46,7 +51,7 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 			}
 			return max;
 		}
-		double max = 0;
+		double max = -1;
 		for (int i = 0; i < val.size(); i++)
 		{
 			position new_pos = pos;
@@ -61,13 +66,13 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	}
 	else // opponent's turn: take worst case
 	{
-		if (val.size() == 0)
+		if (val.size() == 0) //enemy has no moves
 		{
-			
+			return w; // you win, so very good position
 		}
 		if (d == 0) //reached end of recursion
 		{
-			double min = 50;
+			double min = w + 1; //initialize it as better than win to guarantee a lower move
 			for (int i = 0; i < val.size(); i ++)
 			{
 				position new_pos = pos;
@@ -80,7 +85,7 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 			}
 			return min;
 		}
-		double min = 0;
+		double min = w + 1;
 		for (int i = 0; i < val.size(); i++)
 		{
 			position new_pos = pos;

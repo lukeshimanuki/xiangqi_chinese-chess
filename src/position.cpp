@@ -71,7 +71,7 @@ bool position::is_valid (int x1, int y1, int x2, int y2, bool p)
 
 double position::value ()
 {
-	double e = 0.0001;// prevents divide by 0
+	double e = 0.0000001;// prevents divide by 0
 	return (double) (valid_moves(0).size() + e) / (valid_moves(1).size() + e);
 }
 
