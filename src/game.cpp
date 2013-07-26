@@ -40,6 +40,12 @@ void game::play ()
 {
 	while (true)
 	{
+		int winner = pos.winner(turn);
+		if (winner != 0)
+		{
+			std::cout<<"Player "<<(int)turn<<" won!\n\n";
+			return;
+		}
 		take_turn();
 		turn = !turn;
 	}

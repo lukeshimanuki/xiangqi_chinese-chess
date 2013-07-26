@@ -3,7 +3,7 @@
 
 void textio::draw (position &pos)
 {
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		std::cout<<'\n';
 	}

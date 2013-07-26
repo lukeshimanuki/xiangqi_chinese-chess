@@ -4,6 +4,7 @@ std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/to
 {
 	std::vector<std::vector<int> > val_moves;
 	bool flag;
+	bool has_gen = false;
 	int o = !p * 2 - 1; // o = +1 for p 0 or top or positive, -1 for  p 1 or bottom or negative
 	for (int i = 0; i < 10; i++)
 	{
@@ -12,6 +13,7 @@ std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/to
 			switch (o * board[i][j])
 			{
 				case 1: //general
+					has_gen = true;
 					for (int k = -1; k <= 1; k++)
 					{
 						for (int l = -1; l <= 1; l++)
@@ -502,6 +504,11 @@ std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/to
 					break;
 			}
 		}
+	}
+	// if no general, you lose, so no valid moves
+	if (!has_gen)
+	{
+		val_moves.clear();
 	}
 	return val_moves;
 }

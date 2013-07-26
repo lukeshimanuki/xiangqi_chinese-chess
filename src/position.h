@@ -34,6 +34,8 @@ public:
 	
 	bool is_valid (int x1, int y1, int x2, int y2, bool p);
 	
+	int winner (bool t);
+	
 	double value ();
 	
 	position ();

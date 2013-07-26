@@ -16,8 +16,9 @@ position position::copy ()
 
 void position::move(int x1, int y1, int x2, int y2)
 {
-	board[x2][y2] = board[x1][y1];
+	int c = board[x1][y1];
 	board[x1][y1] = 0;
+	board[x2][y2] = c;
 }
 
 void position::initialize ()
@@ -70,7 +71,17 @@ bool position::is_valid (int x1, int y1, int x2, int y2, bool p)
 
 double position::value ()
 {
-	return valid_moves(0).size() / valid_moves(1).size();
+	double e = 0.0001;// prevents divide by 0
+	return (double) (valid_moves(0).size() + e) / (valid_moves(1).size() + e);
+}
+
+int position::winner (bool t) //t = whose turn it is
+{
+	if (valid_moves(t).size() == 0) // if t has no moves
+	{
+		return 2 * t - 1; // player !t wins
+	}
+	return 0;
 }
 
 position::position ()

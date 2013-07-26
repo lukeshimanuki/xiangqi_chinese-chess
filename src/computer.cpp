@@ -61,9 +61,13 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	}
 	else // opponent's turn: take worst case
 	{
+		if (val.size() == 0)
+		{
+			
+		}
 		if (d == 0) //reached end of recursion
 		{
-			double min = 0;
+			double min = 50;
 			for (int i = 0; i < val.size(); i ++)
 			{
 				position new_pos = pos;

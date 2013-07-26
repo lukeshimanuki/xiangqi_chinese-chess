@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS  =
+CFLAGS  = -O3
 LDFLAGS =
 NAME = xiangqi
 
