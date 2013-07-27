@@ -20,6 +20,8 @@ public:
 	 */
 	int board[10][9];
 	
+	std::vector<std::vector<int> > val_cache;
+	
 	std::vector<position> val_pos;
 	
 	position copy ();
@@ -32,11 +34,7 @@ public:
 	
 	std::vector<position> set_valid_moves (bool player);
 	
-	bool is_valid (int x1, int y1, int x2, int y2, bool p);
-	
 	int winner (bool t);
-	
-	double value ();
 	
 	position ();
 };

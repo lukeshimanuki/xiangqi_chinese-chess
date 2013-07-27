@@ -510,5 +510,6 @@ std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/to
 	{
 		val_moves.clear();
 	}
+	val_cache = val_moves;
 	return val_moves;
 }

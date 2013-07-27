@@ -14,7 +14,7 @@ void game::initialize (bool start) // decides if set board with initial position
 	person new_pers;
 	new_pers.set_io(0);
 	computer new_comp;
-	new_comp.set_depth(1);
+	new_comp.set_depth(2);
 	pp.push_back(new_pers);
 	pp.push_back(new_pers);
 	cp.push_back(new_comp);

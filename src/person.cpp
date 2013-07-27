@@ -14,10 +14,24 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	}
 	message(".\n\nWhich piece do you want to move?\n");
 	std::vector<int> o = choose_point();
+	if (pos.board[o[0]][o[1]] * (2 *!p - 1) <= 0)
+	{
+		message("Please choose one of your pieces.\n\n");
+		return choose_move(pos, p);
+	}
 	message("\nWhere do you want to move it?\n");
 	std::vector<int> n = choose_point();
 	std::vector<int> m;
-	if (pos.is_valid(o[0], o[1], n[0], n[1], p))
+	bool is_valid = false;
+	pos.valid_moves(p);
+	for (int i = 0; i < pos.val_cache.size(); i ++)
+	{
+		if ((o[0] == pos.val_cache[i][0]) && (o[1] == pos.val_cache[i][1]) && (n[0] == pos.val_cache[i][2]) && (n[1] == pos.val_cache[i][3]))
+		{
+			is_valid = true;
+		}
+	}
+	if (is_valid)
 	{
 		m.push_back(o[0]);
 		m.push_back(o[1]);
@@ -27,7 +41,7 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	}
 	else
 	{
-		message("\nPlease choose a valid move.\n");
+		message("\nPlease choose a valid move.\n\n");
 		return choose_move(pos, p);
 	}
 }
