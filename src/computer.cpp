@@ -32,7 +32,7 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	{
 		return value(pos, p);
 	}
-	std::vector<std::vector<int> > val = pos.valid_moves(t);
+	std::vector<std::vector<int> > val = filter(pos, pos.valid_moves(t), t);
 	double w = 100000000; //large number to indicate win/loss
 	if (p == t) // if player's turn: take best case
 	{
@@ -73,6 +73,35 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 		return min;
 	}
 }
+
+std::vector<std::vector<int> > computer::filter (position &pos, std::vector<std::vector<int> > o, bool p)
+{
+	double threshold = 0.9; // threshold to filter out obviously bad moves
+	std::vector<std::vector<int> > n;
+	std::vector<double> v;
+	double max = 0;
+	for (int i = 0; i < o.size(); i++)
+	{
+		position new_pos = pos;
+		new_pos.move(o[i][0], o[i][1], o[i][2], o[i][3]);
+		v.push_back(value(new_pos, p));
+	}
+	for (int i = 0; i < o.size(); i++)
+	{
+		if (v[i] > max)
+		{
+			max = v[i];
+		}
+	}
+	for (int i = 0; i < o.size(); i ++)
+	{
+		if (v[i] >= max * threshold)
+		{
+			n.push_back(o[i]);
+		}
+	}
+	return n;
+} 
 
 double computer::value (position & pos, bool p)
 {
