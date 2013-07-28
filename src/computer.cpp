@@ -36,63 +36,6 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	}
 	std::vector<std::vector<int> > val;
 	pos.valid_moves(val, t);
-	
-	// FILTER
-	/*
-	{
-		const double threshold = 0.9; // threshold to filter out obviously bad moves
-		double max = 0;
-		std::vector<double> v;
-		std::vector<std::vector<int> > valo = val;
-		for (int i = 0; i < val.size(); i++)
-		{
-			position new_pos;
-			pos.copy(new_pos);
-			new_pos.move(val[i]);
-			v.push_back(value(new_pos, p));
-			if (v[i] > max)
-			{
-				max = v[i];
-			}
-		}
-		val.clear();
-		for (int i = 0; i < valo.size(); i ++)
-		{
-			if (v[i] >= max * threshold)
-			{
-				val.push_back(valo[i]);
-			}
-		}
-	}
-	*/
-	
-	{
-		const double threshold = 0.9; // threshold to filter out obviously bad moves
-		double max = 0;
-		std::vector<double> v;
-		for (int i = 0; i < val.size(); i++)
-		{
-			position new_pos;
-			pos.copy(new_pos);
-			new_pos.move(val[i]);
-			v.push_back(value(new_pos, p));
-			if (v[i] > max)
-			{
-				max = v[i];
-			}
-		}
-		int j = 0;
-		for (int i = 0; i - j < val.size(); i ++)
-		{
-			if (v[i] <= max * threshold)
-			{
-				val.erase(val.begin() + i - j);
-				j++;
-			}
-		}
-	}	
-	
-
 	const double w = 65536; //large number to indicate win/loss
 	if (p == t) // if player's turn: take best case
 	{
@@ -100,19 +43,44 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 		{
 			return (double) 1 / w; // you lose, so very bad position
 		}
-		double max = 0;
+		// filter
+		const double threshold = 0.9; // threshold to filter out obviously bad moves
+		double max1 = 0;
+		std::vector<double> v;
+		for (int i = 0; i < val.size(); i++)
+		{
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
+			v.push_back(value(new_pos, p));
+			if (v[i] > max1)
+			{
+				max1 = v[i];
+			}
+		}
+		int j = 0;
+		for (int i = 0; i - j < val.size(); i ++)
+		{
+			if (v[i] < max1 * threshold)
+			{
+				val.erase(val.begin() + i - j);
+				j++;
+			}
+		}
+		//recurse
+		double max2 = 0;
 		for (int i = 0; i < val.size(); i++)
 		{
 			position new_pos;
 			pos.copy(new_pos);
 			new_pos.move(val[i]);
 			double value = recurse_val(new_pos, p, !t, d - 1);
-			if (value >= max)
+			if (value > max2)
 			{
-				max = value;
+				max2 = value;
 			}
 		}
-		return max;
+		return max2;
 	}
 	else // opponent's turn: take worst case
 	{
@@ -120,19 +88,44 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 		{
 			return w; // you win, so very good position
 		}
-		double min = w + 1;
+		// filter
+		const double threshold = 1.1; // threshold to filter out obviously bad moves
+		double min1 = w + 1;
+		std::vector<double> v;
+		for (int i = 0; i < val.size(); i++)
+		{
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
+			v.push_back(value(new_pos, p));
+			if (v[i] < min1)
+			{
+				min1 = v[i];
+			}
+		}
+		int j = 0;
+		for (int i = 0; i - j < val.size(); i ++)
+		{
+			if (v[i] > min1 * threshold)
+			{
+				val.erase(val.begin() + i - j);
+				j++;
+			}
+		}
+		// recurse
+		double min2 = w + 1;
 		for (int i = 0; i < val.size(); i++)
 		{
 			position new_pos;
 			pos.copy(new_pos);
 			new_pos.move(val[i]);
 			double value = recurse_val(new_pos, p, !t, d - 1);
-			if (value <= min)
+			if (value < min2)
 			{
-				min = value;
+				min2 = value;
 			}
 		}
-		return min;
+		return min2;
 	}
 }
 
