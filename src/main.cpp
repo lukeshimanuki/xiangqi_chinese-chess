@@ -16,5 +16,8 @@ int main (int argc, char **argv)
 		g.cp[1].set_depth(argv[1][0] - 48);
 	}
 //	g.play();
-	g.cp[0].choose_move(g.pos, 0);
+	std::vector<int> s = g.cp[0].choose_move(g.pos, 0);
+	textio tio;
+	g.pos.move(s);
+	tio.draw(g.pos);
 }

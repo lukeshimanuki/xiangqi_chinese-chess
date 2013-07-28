@@ -39,8 +39,6 @@ public:
 	void set_depth(int a);
 
 	double recurse_val(position &pos, bool p, bool t, int d);
-	
-	std::vector<std::vector<int> > filter (position &pos, std::vector<std::vector<int> > o, bool p);
 
 	std::vector<int> choose_move (position &pos, bool p);
 

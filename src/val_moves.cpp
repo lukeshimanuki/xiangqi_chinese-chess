@@ -1,8 +1,8 @@
 #include "position.h"
 
-std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative
+void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative
 {
-	std::vector<std::vector<int> > val_moves;
+	val_moves.clear();
 	bool flag;
 	bool has_gen = false;
 	int o = !p * 2 - 1; // o = +1 for p 0 or top or positive, -1 for  p 1 or bottom or negative
@@ -510,6 +510,4 @@ std::vector<std::vector<int> > position::valid_moves (bool p) // p: 0 = black/to
 	{
 		val_moves.clear();
 	}
-	val_cache = val_moves;
-	return val_moves;
 }

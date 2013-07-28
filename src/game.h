@@ -2,6 +2,7 @@
 #define GAME_H__
 
 #include <vector>
+#include <cstdlib>
 
 #include "position.h"
 #include "player.h"

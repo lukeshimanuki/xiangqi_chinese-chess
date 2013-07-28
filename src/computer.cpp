@@ -8,13 +8,15 @@ void computer::set_depth (int a)
 // returns move with highest recurse_val
 std::vector<int> computer::choose_move(position &pos, bool p)
 {
-	std::vector<std::vector<int> > val = pos.valid_moves(p);
+	std::vector<std::vector<int> > val;
+	pos.valid_moves(val, p);
 	double max = 0;
 	std::vector<int> best;
 	for (int i = 0; i < val.size(); i++)
 	{
-		position new_pos = pos;
-		new_pos.move(val[i][0], val[i][1], val[i][2], val[i][3]);
+		position new_pos;
+		pos.copy(new_pos);
+		new_pos.move(val[i]);
 		double value = recurse_val(new_pos, p, p, depth);
 		if ((double) value * !p + p / value >= max)
 		{
@@ -32,19 +34,78 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	{
 		return value(pos, p);
 	}
-	std::vector<std::vector<int> > val = filter(pos, pos.valid_moves(t), t);
-	double w = 100000000; //large number to indicate win/loss
+	std::vector<std::vector<int> > val;
+	pos.valid_moves(val, t);
+	
+	// FILTER
+	/*
+	{
+		const double threshold = 0.9; // threshold to filter out obviously bad moves
+		double max = 0;
+		std::vector<double> v;
+		std::vector<std::vector<int> > valo = val;
+		for (int i = 0; i < val.size(); i++)
+		{
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
+			v.push_back(value(new_pos, p));
+			if (v[i] > max)
+			{
+				max = v[i];
+			}
+		}
+		val.clear();
+		for (int i = 0; i < valo.size(); i ++)
+		{
+			if (v[i] >= max * threshold)
+			{
+				val.push_back(valo[i]);
+			}
+		}
+	}
+	*/
+	
+	{
+		const double threshold = 0.9; // threshold to filter out obviously bad moves
+		double max = 0;
+		std::vector<double> v;
+		for (int i = 0; i < val.size(); i++)
+		{
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
+			v.push_back(value(new_pos, p));
+			if (v[i] > max)
+			{
+				max = v[i];
+			}
+		}
+		int j = 0;
+		for (int i = 0; i - j < val.size(); i ++)
+		{
+			if (v[i] <= max * threshold)
+			{
+				val.erase(val.begin() + i - j);
+				j++;
+			}
+		}
+	}	
+	
+
+	const double w = 65536; //large number to indicate win/loss
 	if (p == t) // if player's turn: take best case
 	{
 		if (val.size() == 0) //you have no moves
 		{
 			return (double) 1 / w; // you lose, so very bad position
 		}
-		double max = -1;
+		double max = 0;
 		for (int i = 0; i < val.size(); i++)
 		{
-			position new_pos = pos;
-			new_pos.move(val[i][0], val[i][1], val[i][2], val[i][3]);
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
 			double value = recurse_val(new_pos, p, !t, d - 1);
 			if (value >= max)
 			{
@@ -62,8 +123,9 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 		double min = w + 1;
 		for (int i = 0; i < val.size(); i++)
 		{
-			position new_pos = pos;
-			new_pos.move(val[i][0], val[i][1], val[i][2], val[i][3]);
+			position new_pos;
+			pos.copy(new_pos);
+			new_pos.move(val[i]);
 			double value = recurse_val(new_pos, p, !t, d - 1);
 			if (value <= min)
 			{
@@ -74,39 +136,13 @@ double computer::recurse_val(position &pos, bool p, bool t, int d)
 	}
 }
 
-std::vector<std::vector<int> > computer::filter (position &pos, std::vector<std::vector<int> > o, bool p)
-{
-	double threshold = 0.9; // threshold to filter out obviously bad moves
-	std::vector<std::vector<int> > n;
-	std::vector<double> v;
-	double max = 0;
-	for (int i = 0; i < o.size(); i++)
-	{
-		position new_pos = pos;
-		new_pos.move(o[i][0], o[i][1], o[i][2], o[i][3]);
-		v.push_back(value(new_pos, p));
-	}
-	for (int i = 0; i < o.size(); i++)
-	{
-		if (v[i] > max)
-		{
-			max = v[i];
-		}
-	}
-	for (int i = 0; i < o.size(); i ++)
-	{
-		if (v[i] >= max * threshold)
-		{
-			n.push_back(o[i]);
-		}
-	}
-	return n;
-} 
-
 double computer::value (position & pos, bool p)
 {
-	double e = 0.0000001;// prevents divide by 0
-	double val = (pos.valid_moves(0).size() + e) / (pos.valid_moves(1).size() + e);
+	const double e = 0.0000001;// prevents divide by 0
+	std::vector<std::vector<int> > v0, v1;
+	pos.valid_moves(v0, 0);
+	pos.valid_moves(v1, 1);
+	double val = (v0.size() + e) / (v1.size() + e);
 	return val * !p + p / val;
 }
 

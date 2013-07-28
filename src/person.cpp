@@ -23,10 +23,11 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	std::vector<int> n = choose_point();
 	std::vector<int> m;
 	bool is_valid = false;
-	pos.valid_moves(p);
-	for (int i = 0; i < pos.val_cache.size(); i ++)
+	std::vector<std::vector<int> > z;
+	pos.valid_moves(z, p);
+	for (int i = 0; i < z.size(); i ++)
 	{
-		if ((o[0] == pos.val_cache[i][0]) && (o[1] == pos.val_cache[i][1]) && (n[0] == pos.val_cache[i][2]) && (n[1] == pos.val_cache[i][3]))
+		if ((o[0] == z[i][0]) && (o[1] == z[i][1]) && (n[0] == z[i][2]) && (n[1] == z[i][3]))
 		{
 			is_valid = true;
 		}

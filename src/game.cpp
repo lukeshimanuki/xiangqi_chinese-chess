@@ -33,7 +33,7 @@ void game::take_turn ()
 	{
 		mov = cp[turn].choose_move(pos, turn);
 	}
-	pos.move(mov[0], mov[1], mov[2], mov[3]);
+	pos.move(mov);
 }
 
 void game::play ()
@@ -44,7 +44,7 @@ void game::play ()
 		if (winner != 0)
 		{
 			std::cout<<"Player "<<(int)turn<<" won!\n\n";
-			return;
+			std::exit(0);
 		}
 		take_turn();
 		turn = !turn;

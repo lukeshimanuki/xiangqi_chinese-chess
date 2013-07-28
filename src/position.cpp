@@ -1,24 +1,22 @@
 #include "position.h"
 #include "val_moves.cpp"
 
-position position::copy ()
+void position::copy (position &pos)
 {
-	position new_pos;
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			new_pos.board[i][j] = board[i][j];
+			pos.board[i][j] = board[i][j];
 		}
 	}
-	return new_pos;
 }
 
-void position::move(int x1, int y1, int x2, int y2)
+void position::move(std::vector<int> &vec)
 {
-	int c = board[x1][y1];
-	board[x1][y1] = 0;
-	board[x2][y2] = c;
+	int c = board[vec[0]][vec[1]];
+	board[vec[0]][vec[1]] = 0;
+	board[vec[2]][vec[3]] = c;
 }
 
 void position::initialize ()
@@ -43,21 +41,23 @@ void position::initialize ()
 	}
 }
 
-std::vector<position> position::set_valid_moves (bool p)
+void position::set_moves (std::vector<position> &val_pos, std::vector<std::vector<int> > &vec, bool p)
 {
-	std::vector<position> val_pos;
-	for (int i = 0; i < val_cache.size(); i++)
+	val_pos.clear();
+	for (int i = 0; i < vec.size(); i++)
 	{
-		position new_pos = copy();
-		new_pos.move(val_cache[i][0], val_cache[i][1], val_cache[i][2], val_cache[i][3]);
+		position new_pos;
+		copy(new_pos);
+		new_pos.move(vec[i]);
 		val_pos.push_back(new_pos);
 	}
-	return val_pos;
 }
 
 int position::winner (bool t) //t = whose turn it is
 {
-	if (valid_moves(t).size() == 0) // if t has no moves
+	std::vector<std::vector<int> > m;
+	valid_moves(m, t);
+	if (m.size() == 0) // if t has no moves
 	{
 		return 2 * t - 1; // player !t wins
 	}
@@ -66,6 +66,7 @@ int position::winner (bool t) //t = whose turn it is
 
 position::position ()
 {
+/*
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 9; j++)
@@ -73,4 +74,5 @@ position::position ()
 			board[i][j] = 0;
 		}
 	}
+*/
 }
