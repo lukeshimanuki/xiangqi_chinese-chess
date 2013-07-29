@@ -11,22 +11,22 @@ xiangqi_chinese-chess: main.o position.o textio.o person.o computer.o io.o game.
 main.o: src/main.cpp
 	$(CC) -c $(CFLAGS) $<
 
-position.o: src/position.cpp src/valid_moves.h src/position.h
+position.o: src/position.cpp
 	$(CC) -c $(CFLAGS) $<
 	
-textio.o: src/textio.cpp src/io.h src/position.h
+textio.o: src/textio.cpp
 	$(CC) -c $(CFLAGS) $<
 	
-io.o: src/io.cpp src/io.h src/position.h
+io.o: src/io.cpp
 	$(CC) -c $(CFLAGS) $<
 	
-person.o: src/person.cpp src/player.h src/io.h
+person.o: src/person.cpp
 	$(CC) -c $(CFLAGS) $<
 	
-computer.o: src/computer.cpp src/player.h
+computer.o: src/computer.cpp
 	$(CC) -c $(CFLAGS) $<
 
-game.o: src/game.cpp src/player.h src/position.h
+game.o: src/game.cpp
 	$(CC) -c $(CFLAGS) $<
 	
 .PHONY: clean cleanest
