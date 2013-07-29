@@ -44,7 +44,7 @@ void game::play ()
 		if (winner != 0)
 		{
 			std::cout<<"Player "<<(int)turn<<" won!\n\n";
-			std::exit(0);
+//			std::exit(0);
 		}
 		take_turn();
 		turn = !turn;
