@@ -8,7 +8,7 @@
 int main (int argc, char **argv)
 {
 	game g;
-	g.set_type(0,1);
+	g.set_type(0,0);
 	g.initialize(1);
 	if (argc >= 2)
 	{

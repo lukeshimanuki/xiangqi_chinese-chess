@@ -34,40 +34,10 @@ void game::take_turn ()
 		mov = cp[turn].choose_move(pos, turn);
 	}
 	pos.move(mov);
-	log(mov);
-}
-
-void game::play ()
-{
-	while (true)
-	{
-		int winner = pos.winner(turn);
-		if (winner != 0)
-		{
-			std::cout<<"Player "<<(int)turn<<" won!\n\n";
-			if (logfile.is_open())
-			{
-				logfile<<"Player "<<(int)turn<<" won!";
-			}
-			std::exit(0);
-		}
-		take_turn();
-		turn = !turn;
-	}
-}
-
-void game::set_log (std::string filename)
-{
-	if (logfile.is_open())
-	{
-		logfile.close();
-	}
-	logfile.open(filename.c_str());
-}
-
-void game::log(std::vector<int> move)
-{
-	logfile<<"It is now player "<<(int)turn<<"'s turn.\nPlayer "<<(int) turn<<" moves piece ("<<move[0]<<','<<move[1]<<") to ("<<move[2]<<','<<move[3]<<").\n";
+	
+	// log
+	std::ofstream logfile(log.c_str(), std::ios::app);
+	logfile<<"It is now player "<<(int)turn<<"'s turn.\nPlayer "<<(int) turn<<" moves piece ("<<mov[0]<<','<<mov[1]<<") to ("<<mov[2]<<','<<mov[3]<<").\n";
 	for (int i = 0; i < 10; i ++)
 	{
 		for (int j = 0; j < 9; j ++)
@@ -92,6 +62,33 @@ void game::log(std::vector<int> move)
 	logfile << "\n\n";
 }
 
+void game::play ()
+{
+	while (true)
+	{
+		int winner = pos.winner(turn);
+		if (winner != 0)
+		{
+			std::cout<<"Player "<<(int)turn<<" won!\n\n";
+			std::ofstream logfile(log.c_str(), std::ios::app);
+			if (logfile.is_open())
+			{
+				logfile<<"Player "<<(int)turn<<" won!";
+			}
+			std::exit(0);
+		}
+		take_turn();
+		turn = !turn;
+	}
+}
+
+void game::set_log(std::string filename)
+{
+	log = filename;
+	std::ofstream logfile(log.c_str(), std::ios::trunc);
+}
+
 game::game ()
 {
+
 }

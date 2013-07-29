@@ -18,7 +18,7 @@ public:
 	
 	std::vector<bool> type; // true = person, false = computer
 	
-	std::ofstream logfile;
+	std::string log;
 	
 	bool turn;
 	
@@ -30,11 +30,9 @@ public:
 	
 	void set_type (bool a, bool b);
 	
-	void set_log (std::string filename);
-	
 	void initialize (bool start);
 	
-	void log(std::vector<int> move);
+	void set_log (std::string filename);
 	
 	game ();
 };
