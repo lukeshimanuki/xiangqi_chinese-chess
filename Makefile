@@ -11,7 +11,7 @@ xiangqi_chinese-chess: main.o position.o textio.o person.o computer.o io.o game.
 main.o: src/main.cpp
 	$(CC) -c $(CFLAGS) $<
 
-position.o: src/position.cpp src/valid_moves.cpp src/position.h
+position.o: src/position.cpp src/valid_moves.h src/position.h
 	$(CC) -c $(CFLAGS) $<
 	
 textio.o: src/textio.cpp src/io.h src/position.h

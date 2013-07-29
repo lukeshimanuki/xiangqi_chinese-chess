@@ -1,5 +1,5 @@
 #include "position.h"
-#include "valid_moves.cpp"
+#include "valid_moves.h"
 
 void position::copy (position &pos)
 {
