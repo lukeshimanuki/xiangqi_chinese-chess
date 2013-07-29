@@ -1,38 +1,29 @@
 CC = g++
-CFLAGS  = -O3
+CFLAGS  = -g -c -O3 -Wall
 LDFLAGS =
-NAME = xiangqi
 
-all: xiangqi_chinese-chess
+EXECUTABLE = xiangqi
 
-xiangqi_chinese-chess: main.o position.o textio.o person.o computer.o io.o game.o
-	$(CC) -o $@ $^ $(LDFLAGS) -o $(NAME)
+SOURCEDIR = src
+BUILDDIR = build
+SOURCES = $(wildcard $(SOURCEDIR)/*.cpp)
+OBJECTS = $(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 
-main.o: src/main.cpp
-	$(CC) -c $(CFLAGS) $<
+all: dir $(EXECUTABLE)
 
-position.o: src/position.cpp
-	$(CC) -c $(CFLAGS) $<
-	
-textio.o: src/textio.cpp
-	$(CC) -c $(CFLAGS) $<
-	
-io.o: src/io.cpp
-	$(CC) -c $(CFLAGS) $<
-	
-person.o: src/person.cpp
-	$(CC) -c $(CFLAGS) $<
-	
-computer.o: src/computer.cpp
-	$(CC) -c $(CFLAGS) $<
+dir:
+	mkdir -p $(BUILDDIR)
 
-game.o: src/game.cpp
-	$(CC) -c $(CFLAGS) $<
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $^ -o $@
+
+$(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
 	
-.PHONY: clean cleanest
+.PHONY: clean
 
 clean:
-	rm *.o
-	rm $(NAME)
+	rm $(BUILDDIR)/*o
+	rmdir $(BUILDDIR)
+	rm $(EXECUTABLE)
 
-cleanest: clean
