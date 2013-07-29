@@ -10,7 +10,32 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 {
 	std::vector<std::vector<int> > val;
 	pos.valid_moves(val, p);
-	double max = 0;
+	// filter
+	const double threshold = 0.9; // threshold to filter out obviously bad moves
+	double max1 = 0;
+	std::vector<double> v;
+	for (int i = 0; i < val.size(); i++)
+	{
+		position new_pos;
+		pos.copy(new_pos);
+		new_pos.move(val[i]);
+		v.push_back(value(new_pos, p));
+		if (v[i] > max1)
+		{
+			max1 = v[i];
+		}
+	}
+	int j = 0;
+	for (int i = 0; i - j < val.size(); i ++)
+	{
+		if (v[i] < max1 * threshold)
+		{
+			val.erase(val.begin() + i - j);
+			j++;
+		}
+	}
+	//recurse
+	double max2 = 0;
 	std::vector<int> best;
 	for (int i = 0; i < val.size(); i++)
 	{
@@ -18,9 +43,9 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		pos.copy(new_pos);
 		new_pos.move(val[i]);
 		double value = recurse_val(new_pos, p, p, depth);
-		if ((double) value * !p + p / value >= max)
+		if ((double) value * !p + p / value >= max2)
 		{
-			max = (double) value * !p + p / value;
+			max2 = (double) value * !p + p / value;
 			best = val[i];
 		}
 	}
