@@ -42,20 +42,41 @@ void game::take_turn ()
 	{
 		for (int j = 0; j < 9; j ++)
 		{
-			logfile << '[';
+			if ((i == mov[2]) && (j == mov[3]))
+			{
+				logfile << '$';
+			}
+			else
+			{
+				logfile << '[';
+			}
 			if (pos.board[i][j] > 0)
 			{
 				logfile << '+'<<pos.board[i][j];
 			}
 			if (pos.board[i][j] == 0)
 			{
-				logfile << "  ";
+				if ((i == mov[0]) && (j == mov[1]))
+				{
+					logfile << "00";
+				}
+				else
+				{
+					logfile << "  ";
+				}
 			}
 			if (pos.board[i][j] < 0)
 			{
 				logfile << pos.board[i][j];
 			}
-			logfile<<']';
+			if ((i == mov[2]) && (j == mov[3]))
+			{
+				logfile << '$';
+			}
+			else
+			{
+				logfile << ']';
+			}
 		}
 		logfile<<'\n';
 	}
