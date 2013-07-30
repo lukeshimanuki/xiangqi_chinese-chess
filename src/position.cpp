@@ -59,20 +59,12 @@ int position::winner (bool t) //t = whose turn it is
 	valid_moves(m, t);
 	if (m.size() == 0) // if t has no moves
 	{
-		return 2 * t - 1; // player !t wins
+		return !t; // player !t wins
 	}
-	return 0;
+	return -1;
 }
 
 position::position ()
 {
-/*
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 9; j++)
-		{
-			board[i][j] = 0;
-		}
-	}
-*/
+
 }

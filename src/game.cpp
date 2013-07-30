@@ -88,14 +88,11 @@ void game::play ()
 	while (true)
 	{
 		int winner = pos.winner(turn);
-		if (winner != 0)
+		if (winner != -1)
 		{
-			std::cout<<"Player "<<(int)turn<<" won!\n\n";
+			std::cout<<"Player "<<winner<<" won!\n\n";
 			std::ofstream logfile(log.c_str(), std::ios::app);
-			if (logfile.is_open())
-			{
-				logfile<<"Player "<<(int)turn<<" won!";
-			}
+			logfile << "Player " <<winner << " won!\n";
 			std::exit(0);
 		}
 		take_turn();
