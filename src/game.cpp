@@ -92,7 +92,7 @@ void game::play ()
 		{
 			std::cout<<"Player "<<winner<<" won!\n\n";
 			std::ofstream logfile(log.c_str(), std::ios::app);
-			logfile << "Player " <<winner << " won!\n";
+			logfile << "Player " << winner << " won!\n";
 			std::exit(0);
 		}
 		take_turn();

@@ -2,6 +2,7 @@
 #define PLAYER_H__
 
 #include <vector>
+#include <cstdlib>
 
 #include "position.h"
 #include "io.h"
@@ -38,7 +39,7 @@ public:
 
 	void set_depth(int a);
 
-	double recurse_val(position &pos, bool p, bool t, int d);
+	double recurse_val(position &pos, bool p, int d);
 
 	std::vector<int> choose_move (position &pos, bool p);
 
