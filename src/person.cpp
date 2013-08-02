@@ -1,4 +1,3 @@
-#include "player.h"
 #include "person.h"
 
 std::vector<int> person::choose_move (position &pos, bool p)

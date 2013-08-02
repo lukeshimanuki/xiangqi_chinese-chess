@@ -1,4 +1,3 @@
-#include "player.h"
 #include "computer.h"
 
 // returns move with highest recurse_val
