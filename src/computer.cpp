@@ -57,7 +57,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	return best;
 }
 
-// game position, which player, whose turn on that position, how deep to recurse
+// game position, which player, how deep to recurse
 double computer::recurse_val(position &pos, bool p, int d)
 {
 	if (d == 0) //reached end of recursion
@@ -71,7 +71,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 		return 0.00000001; // you lose, so very bad position
 	}
 	// filter
-	const double threshold = 0.9; // threshold to filter out obviously bad moves
+	const double threshold = 0.6; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (int i = 0; i < val.size(); i++)

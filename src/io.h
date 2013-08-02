@@ -7,11 +7,11 @@
 class io
 {
 public:
-	void draw (position &pos);
+	virtual void draw (position &pos) = 0;
 	
-	void message (std::string a);
+	virtual void message (std::string a) = 0;
 	
-	std::vector<int> choose_point ();
+	virtual std::vector<int> choose_point () = 0;
 	
 	io ();
 };
@@ -23,9 +23,9 @@ public:
 	
 	void message (std::string a);
 	
+	std::vector<int> choose_point ();	
+
 	int innum ();
-	
-	std::vector<int> choose_point ();
 	
 	textio ();
 };

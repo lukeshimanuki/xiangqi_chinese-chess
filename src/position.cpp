@@ -575,7 +575,12 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 	}
 }
 
-position::position ()
-{
 
+// x is rows, y is columns
+position::position ()
+{/*
+	std::vector<int> p (y, 0);
+	std::vector<std::vector<int> > q (x, p);
+	board = q;
+*/
 }

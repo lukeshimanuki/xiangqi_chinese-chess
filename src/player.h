@@ -29,6 +29,8 @@ public:
 	void draw(position &pos);
 	std::vector<int> choose_point ();
 	
+	std::vector<io*> in_out;
+	
 	person ();
 };
 

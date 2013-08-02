@@ -54,42 +54,20 @@ void person::set_io (int a)
 
 void person::draw (position &pos)
 {
-	textio tio;
-	switch (io_type)
-	{
-		case 0:
-			tio.draw(pos);
-			break;
-		default:
-			break;
-	}
+	in_out[io_type]->draw(pos);
 }
 
 void person::message (std::string a)
 {
-	textio tio;
-	switch (io_type)
-	{
-		case 0:
-			tio.message(a);
-			break;
-		default:
-			break;
-	}
+	in_out[io_type]->message(a);
 }
 
 std::vector<int> person::choose_point ()
 {
-	textio tio;
-	switch (io_type)
-	{
-		case 0:
-			return tio.choose_point();
-		default:
-			break;
-	}
+	return in_out[io_type]->choose_point ();
 }
 
 person::person ()
 {
+	in_out.push_back (new textio);
 }
