@@ -9,7 +9,7 @@
 class computer : public player
 {
 public:
-	int type ();
+	int player_type ();
 
 	int depth;
 

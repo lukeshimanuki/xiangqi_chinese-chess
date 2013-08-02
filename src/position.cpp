@@ -2,13 +2,7 @@
 
 void position::copy (position &pos)
 {
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 9; j++)
-		{
-			pos.board[i][j] = board[i][j];
-		}
-	}
+	pos.board = board;
 }
 
 void position::move(std::vector<int> &vec)
@@ -18,26 +12,9 @@ void position::move(std::vector<int> &vec)
 	board[vec[2]][vec[3]] = c;
 }
 
-void position::initialize ()
+void position::initialize (std::vector<std::vector<int> > initialboard)
 {
-	int initialboard [10][9] =
-		{{	5,4,3,2,1,2,3,4,5		},
-		{	0,0,0,0,0,0,0,0,0		},
-		{	0,6,0,0,0,0,0,6,0		},
-		{	7,0,7,0,7,0,7,0,7		},
-		{	0,0,0,0,0,0,0,0,0		},
-		{	0,0,0,0,0,0,0,0,0		},
-		{	-7,0,-7,0,-7,0,-7,0,-7	},
-		{	0,-6,0,0,0,0,0,-6,0		},
-		{	0,0,0,0,0,0,0,0,0		},
-		{	-5,-4,-3,-2,-1,-2,-3,-4,-5}};
-	for (int i = 0; i < 10; i ++)
-	{
-		for (int j = 0; j < 9; j ++)
-		{
-			board[i][j] = initialboard[i][j];
-		}
-	}
+	board = initialboard;
 }
 
 void position::set_moves (std::vector<position> &val_pos, std::vector<std::vector<int> > &vec, bool p)
@@ -181,7 +158,7 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 					{
 						for (int l = -2; l <= 2; l += 4)
 						{
-							if ((!p) && (board[i + k / 2][j + l / 2] == 0) && (i + k <= 4) && (i + k >= 0) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on top
+							if ((!p) && (i + k <= 4) && (i + k >= 0) && (j + l >= 0) && (j + l <= 8) && (board[i + k / 2][j + l / 2] == 0) && (board[i + k][j + l] * o <= 0)) //if on top
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -190,7 +167,7 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 								list.push_back(j + l);
 								val_moves.push_back(list);
 							}
-							else if ((!p) && (board[i + k / 2][j + l / 2] == 0) && (i + k >= 5) && (i + k <= 9) && (j + l >= 0) && (j + l <= 8) && (board[i + k][j + l] * o <= 0)) //if on bottom
+							else if ((p) && (i + k >= 5) && (i + k <= 9) && (j + l >= 0) && (j + l <= 8) && (board[i + k / 2][j + l / 2] == 0) && (board[i + k][j + l] * o <= 0)) //if on bottom
 							{
 								std::vector<int> list;
 								list.push_back(i);
@@ -224,7 +201,7 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 							val_moves.push_back(list);
 						}
 					}
-					if ((i - 2 <= 9) && (board[i - 1][j] == 0))
+					if ((i - 2 >= 0) && (board[i - 1][j] == 0))
 					{
 						if ((j + 1 <= 8) && (board[i - 2][j + 1] * o <= 0))
 						{

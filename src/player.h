@@ -11,7 +11,7 @@ class player
 public:
 	virtual std::vector<int> choose_move (position &pos, bool p) = 0;
 	
-	virtual int type () = 0;
+	virtual int player_type () = 0;
 	
 	virtual void set_difficulty (int d) = 0;
 

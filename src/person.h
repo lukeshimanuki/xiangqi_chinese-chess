@@ -10,11 +10,10 @@
 class person : public player
 {
 public:
-	int type ();
+	int player_type ();
 	void set_difficulty (int d);
 
 	int io_type; // 0 = text
-	void set_io(int a);
 	std::vector<int> choose_move (position &pos, bool p);
 	
 	// io

@@ -48,11 +48,6 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	}
 }
 
-void person::set_io (int a)
-{
-	io_type = a;
-}
-
 void person::draw (position &pos)
 {
 	in_out[io_type]->draw(pos);
@@ -68,13 +63,14 @@ std::vector<int> person::choose_point ()
 	return in_out[io_type]->choose_point ();
 }
 
-int person::type ()
+int person::player_type ()
 {
 	return 0;
 }
 
 void person::set_difficulty(int d)
 {
+	io_type = 0;
 }
 
 person::person ()

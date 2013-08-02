@@ -16,7 +16,28 @@ void game::set_players (int a, int b)
 
 void game::initialize () // decides if set board with initial position or empty
 {
-	pos.initialize();
+	std::vector<std::vector<int> > board;
+	int initialboard [10][9] =
+		{{	5,4,3,2,1,2,3,4,5		},
+		{	0,0,0,0,0,0,0,0,0		},
+		{	0,6,0,0,0,0,0,6,0		},
+		{	7,0,7,0,7,0,7,0,7		},
+		{	0,0,0,0,0,0,0,0,0		},
+		{	0,0,0,0,0,0,0,0,0		},
+		{	-7,0,-7,0,-7,0,-7,0,-7	},
+		{	0,-6,0,0,0,0,0,-6,0		},
+		{	0,0,0,0,0,0,0,0,0		},
+		{	-5,-4,-3,-2,-1,-2,-3,-4,-5}};
+	for (int i = 0; i < 10; i ++)
+	{
+		std::vector<int> p;
+		for (int j = 0; j < 9; j ++)
+		{
+			p.push_back(initialboard[i][j]);
+		}
+		board.push_back(p);
+	}
+	pos.initialize(board);
 	turn = 0;
 }
 

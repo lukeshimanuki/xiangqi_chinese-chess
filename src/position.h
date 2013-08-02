@@ -18,7 +18,7 @@ public:
 	 * positive = player 0
 	 * negative = player 1
 	 */
-	int board[10][9];
+	std::vector<std::vector<int> > board;
 	
 	void valid_moves (std::vector<std::vector<int> > &vec, bool player);
 	
@@ -30,7 +30,7 @@ public:
 	
 	void set_moves (std::vector<position> &val_pos, std::vector<std::vector<int> > &vec, bool player);
 
-	void initialize ();
+	void initialize (std::vector<std::vector<int> > initialposition);
 
 	int winner (bool t);
 	

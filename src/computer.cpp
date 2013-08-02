@@ -115,7 +115,7 @@ double computer::value (position & pos, bool p)
 	return (v0.size() + e) / (v1.size() + e);
 }
 
-int computer::type ()
+int computer::player_type ()
 {
 	return 1;
 }

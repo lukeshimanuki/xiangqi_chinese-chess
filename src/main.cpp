@@ -18,10 +18,12 @@ int main (int argc, char **argv)
 	if (argc >= 4)
 	{
 		x.players[0]->set_difficulty(argv[3][0] - 48);
+		x.players[1]->set_difficulty(argv[3][0] - 48);
 	}
 	else
 	{
-		x.players[0]->set_difficulty(5);
+		x.players[0]->set_difficulty(3);
+		x.players[1]->set_difficulty(3);
 	}
 	x.set_log("xiangqi.log");
 	x.play();
