@@ -31,6 +31,8 @@ public:
 	
 	void set_log (std::string filename);
 	
+	void log_move (std::vector<int> mov);
+	
 	game ();
 };
 
