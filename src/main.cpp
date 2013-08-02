@@ -1,7 +1,3 @@
-#include "position.h"
-#include "io.h"
-#include "player.h"
-#include "game.h"
 #include "xiangqi.h"
 
 #include <iostream>

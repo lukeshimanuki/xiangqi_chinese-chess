@@ -5,7 +5,6 @@
 #include <cstdlib>
 
 #include "position.h"
-#include "io.h"
 
 class player
 {

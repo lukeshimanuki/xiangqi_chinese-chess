@@ -7,7 +7,6 @@
 #include <fstream>
 
 #include "position.h"
-#include "player.h"
 #include "person.h"
 #include "computer.h"
 
