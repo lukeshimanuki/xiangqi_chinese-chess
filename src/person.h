@@ -11,7 +11,7 @@ class person : public player
 {
 public:
 	int player_type ();
-	void set_difficulty (int d);
+	void set_type (int t);
 
 	int io_type; // 0 = text
 	std::vector<int> choose_move (position &pos, bool p);

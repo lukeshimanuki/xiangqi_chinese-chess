@@ -27,6 +27,10 @@ public:
 	
 	void set_players (int a, int b);
 	
+	void valid_moves (std::vector<std::vector<int> > &vec, position &pos, bool player);
+	
+	int winner (position &pos, bool t);
+	
 	void initialize ();
 	
 	void set_log (std::string filename);

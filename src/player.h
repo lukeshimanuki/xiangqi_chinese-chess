@@ -13,7 +13,7 @@ public:
 	
 	virtual int player_type () = 0;
 	
-	virtual void set_difficulty (int d) = 0;
+	virtual void set_type (int t) = 0;
 
 	player()
 	{

@@ -17,13 +17,13 @@ int main (int argc, char **argv)
 	}
 	if (argc >= 5)
 	{
-		x.players[0]->set_difficulty(argv[3][0] - 48);
-		x.players[1]->set_difficulty(argv[4][0] - 48);
+		x.players[0]->set_type(argv[3][0] - 48);
+		x.players[1]->set_type(argv[4][0] - 48);
 	}
 	else
 	{
-		x.players[0]->set_difficulty(0);
-		x.players[1]->set_difficulty(0);
+		x.players[0]->set_type(0);
+		x.players[1]->set_type(0);
 	}
 	x.set_log("xiangqi.log");
 	x.play();

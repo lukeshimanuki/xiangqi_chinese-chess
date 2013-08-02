@@ -13,7 +13,7 @@ public:
 
 	int depth;
 
-	void set_difficulty (int d);
+	void set_type (int t);
 
 	double recurse_val(position &pos, bool p, int d);
 

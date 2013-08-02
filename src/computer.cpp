@@ -119,9 +119,9 @@ int computer::player_type ()
 	return 1;
 }
 
-void computer::set_difficulty (int d)
+void computer::set_type (int t)
 {
-	depth = d;
+	depth = t;
 }
 
 computer::computer()
