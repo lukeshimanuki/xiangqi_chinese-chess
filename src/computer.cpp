@@ -1,10 +1,5 @@
 #include "player.h"
 
-void computer::set_depth (int a)
-{
-	depth = a;
-}
-
 // returns move with highest recurse_val
 std::vector<int> computer::choose_move(position &pos, bool p)
 {
@@ -19,7 +14,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	const double threshold = 0.9; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
-	for (int i = 0; i < val.size(); i++)
+	for (unsigned int i = 0; i < val.size(); i++)
 	{
 		position new_pos;
 		pos.copy(new_pos);
@@ -31,7 +26,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		}
 	}
 	int j = 0;
-	for (int i = 0; i - j < val.size(); i ++)
+	for (unsigned int i = 0; i - j < val.size(); i ++)
 	{
 		if (v[i] < max1 * threshold)
 		{
@@ -42,7 +37,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	//recurse
 	double max2 = 0;
 	std::vector<int> best;
-	for (int i = 0; i < val.size(); i++)
+	for (unsigned int i = 0; i < val.size(); i++)
 	{
 		position new_pos;
 		pos.copy(new_pos);
@@ -74,7 +69,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 	const double threshold = 0.6; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
-	for (int i = 0; i < val.size(); i++)
+	for (unsigned int i = 0; i < val.size(); i++)
 	{
 		position new_pos;
 		pos.copy(new_pos);
@@ -86,7 +81,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 		}
 	}
 	int j = 0;
-	for (int i = 0; i - j < val.size(); i ++)
+	for (unsigned int i = 0; i - j < val.size(); i ++)
 	{
 		if (v[i] < max1 * threshold)
 		{
@@ -96,7 +91,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 	}
 	//recurse
 	double max2 = 0;
-	for (int i = 0; i < val.size(); i++)
+	for (unsigned int i = 0; i < val.size(); i++)
 	{
 		position new_pos;
 		pos.copy(new_pos);
@@ -117,6 +112,16 @@ double computer::value (position & pos, bool p)
 	pos.valid_moves(v0, p);
 	pos.valid_moves(v1, !p);
 	return (v0.size() + e) / (v1.size() + e);
+}
+
+int computer::type ()
+{
+	return 1;
+}
+
+void computer::set_difficulty (int d)
+{
+	depth = d;
 }
 
 computer::computer()

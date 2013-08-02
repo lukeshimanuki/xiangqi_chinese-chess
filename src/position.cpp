@@ -43,7 +43,7 @@ void position::initialize ()
 void position::set_moves (std::vector<position> &val_pos, std::vector<std::vector<int> > &vec, bool p)
 {
 	val_pos.clear();
-	for (int i = 0; i < vec.size(); i++)
+	for (unsigned int i = 0; i < vec.size(); i++)
 	{
 		position new_pos;
 		copy(new_pos);
@@ -129,6 +129,7 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 							}
 						}
 						if ((p) && (i - k >= 0)) //if on bottom
+						{
 							if (board[i - k][j] == 1)
 							{
 								std::vector<int> list;
@@ -146,6 +147,7 @@ void position::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) /
 							{
 								break;
 							}
+						}
 					}
 					break;
 				case 2: //advisor

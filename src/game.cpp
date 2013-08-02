@@ -1,38 +1,28 @@
 #include "game.h"
 
-void game::set_type (bool a, bool b)
+void game::set_players (int a, int b)
 {
-	type.clear();
-	type.push_back(a);
-	type.push_back(b);
+	players.clear();
+	std::vector<player*> p;
+	
+	// This sets up all possible players
+	p.push_back(new person);
+	p.push_back(new computer);
+	
+	// Puts the selected ones into the set of players
+	players.push_back(p[a]);
+	players.push_back(p[b]);
 }
 
-void game::initialize (bool start) // decides if set board with initial position or empty
+void game::initialize () // decides if set board with initial position or empty
 {
 	pos.initialize();
-	pp.clear();
-	person new_pers;
-	new_pers.set_io(0);
-	computer new_comp;
-	new_comp.set_depth(2);
-	pp.push_back(new_pers);
-	pp.push_back(new_pers);
-	cp.push_back(new_comp);
-	cp.push_back(new_comp);
 	turn = 0;
 }
 
 void game::take_turn ()
 {
-	std::vector<int> mov;
-	if (type[turn]) // true = person; false = computer
-	{
-		mov = pp[turn].choose_move(pos, turn);
-	}
-	else
-	{
-		mov = cp[turn].choose_move(pos, turn);
-	}
+	std::vector<int> mov = players[turn]->choose_move(pos, turn);
 	pos.move(mov);
 	
 	// log

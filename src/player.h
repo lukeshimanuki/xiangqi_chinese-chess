@@ -10,7 +10,11 @@
 class player
 {
 public:
-	std::vector<int> choose_move (position &pos, bool p);
+	virtual std::vector<int> choose_move (position &pos, bool p) = 0;
+	
+	virtual int type () = 0;
+	
+	virtual void set_difficulty (int d) = 0;
 
 	player()
 	{
@@ -20,6 +24,9 @@ public:
 class person : public player
 {
 public:
+	int type ();
+	void set_difficulty (int d);
+
 	int io_type; // 0 = text
 	void set_io(int a);
 	std::vector<int> choose_move (position &pos, bool p);
@@ -37,9 +44,11 @@ public:
 class computer : public player
 {
 public:
+	int type ();
+
 	int depth;
 
-	void set_depth(int a);
+	void set_difficulty (int d);
 
 	double recurse_val(position &pos, bool p, int d);
 

@@ -12,11 +12,7 @@
 class game
 {
 public:
-	std::vector<person> pp;
-	
-	std::vector<computer> cp;
-	
-	std::vector<bool> type; // true = person, false = computer
+	std::vector<player*> players;
 	
 	std::string log;
 	
@@ -28,9 +24,9 @@ public:
 	
 	void play ();
 	
-	void set_type (bool a, bool b);
+	void set_players (int a, int b);
 	
-	void initialize (bool start);
+	void initialize ();
 	
 	void set_log (std::string filename);
 	

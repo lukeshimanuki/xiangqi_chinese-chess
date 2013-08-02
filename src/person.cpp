@@ -25,7 +25,7 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	bool is_valid = false;
 	std::vector<std::vector<int> > z;
 	pos.valid_moves(z, p);
-	for (int i = 0; i < z.size(); i ++)
+	for (unsigned int i = 0; i < z.size(); i ++)
 	{
 		if ((o[0] == z[i][0]) && (o[1] == z[i][1]) && (n[0] == z[i][2]) && (n[1] == z[i][3]))
 		{
@@ -65,6 +65,15 @@ void person::message (std::string a)
 std::vector<int> person::choose_point ()
 {
 	return in_out[io_type]->choose_point ();
+}
+
+int person::type ()
+{
+	return 0;
+}
+
+void person::set_difficulty(int d)
+{
 }
 
 person::person ()
