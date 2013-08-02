@@ -3,25 +3,25 @@
 
 std::vector<int> person::choose_move (position &pos, bool p)
 {
-	draw(pos);
-	message("You are ");
+	in_out[io_type]->draw(pos);
+	in_out[io_type]->message("You are ");
 	if (p)
 	{	
-		message("red");
+		in_out[io_type]->message("red");
 	}
 	else
 	{
-		message("black");
+		in_out[io_type]->message("black");
 	}
-	message(".\n\nWhich piece do you want to move?\n");
-	std::vector<int> o = choose_point();
+	in_out[io_type]->message(".\n\nWhich piece do you want to move?\n");
+	std::vector<int> o = in_out[io_type]->choose_point();
 	if (pos.board[o[0]][o[1]] * (2 *!p - 1) <= 0)
 	{
-		message("Please choose one of your pieces.\n\n");
+		in_out[io_type]->message("Please choose one of your pieces.\n\n");
 		return choose_move(pos, p);
 	}
-	message("\nWhere do you want to move it?\n");
-	std::vector<int> n = choose_point();
+	in_out[io_type]->message("\nWhere do you want to move it?\n");
+	std::vector<int> n = in_out[io_type]->choose_point();
 	std::vector<int> m;
 	bool is_valid = false;
 	std::vector<std::vector<int> > z;
@@ -43,24 +43,9 @@ std::vector<int> person::choose_move (position &pos, bool p)
 	}
 	else
 	{
-		message("\nPlease choose a valid move.\n\n");
+		in_out[io_type]->message("\nPlease choose a valid move.\n\n");
 		return choose_move(pos, p);
 	}
-}
-
-void person::draw (position &pos)
-{
-	in_out[io_type]->draw(pos);
-}
-
-void person::message (std::string a)
-{
-	in_out[io_type]->message(a);
-}
-
-std::vector<int> person::choose_point ()
-{
-	return in_out[io_type]->choose_point ();
 }
 
 int person::player_type ()
@@ -70,7 +55,7 @@ int person::player_type ()
 
 void person::set_difficulty(int d)
 {
-	io_type = 0;
+	io_type = d;
 }
 
 person::person ()
