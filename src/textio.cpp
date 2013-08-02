@@ -1,4 +1,6 @@
 #include "io.h"
+#include "textio.h"
+
 #include <iostream>
 
 void textio::draw (position &pos)

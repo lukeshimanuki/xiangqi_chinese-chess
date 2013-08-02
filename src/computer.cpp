@@ -1,4 +1,5 @@
 #include "player.h"
+#include "computer.h"
 
 // returns move with highest recurse_val
 std::vector<int> computer::choose_move(position &pos, bool p)

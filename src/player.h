@@ -21,42 +21,4 @@ public:
 	}
 };
 
-class person : public player
-{
-public:
-	int type ();
-	void set_difficulty (int d);
-
-	int io_type; // 0 = text
-	void set_io(int a);
-	std::vector<int> choose_move (position &pos, bool p);
-	
-	// io
-	void message(std::string a);
-	void draw(position &pos);
-	std::vector<int> choose_point ();
-	
-	std::vector<io*> in_out;
-	
-	person ();
-};
-
-class computer : public player
-{
-public:
-	int type ();
-
-	int depth;
-
-	void set_difficulty (int d);
-
-	double recurse_val(position &pos, bool p, int d);
-
-	std::vector<int> choose_move (position &pos, bool p);
-
-	double value (position &pos, bool p);
-
-	computer ();
-};
-
 #endif

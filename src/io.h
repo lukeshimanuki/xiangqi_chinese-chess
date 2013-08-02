@@ -2,6 +2,7 @@
 #define IO_H__
 
 #include <string>
+
 #include "position.h"
 
 class io
@@ -14,20 +15,6 @@ public:
 	virtual std::vector<int> choose_point () = 0;
 	
 	io ();
-};
-
-class textio : public io
-{
-public:
-	void draw (position &pos);
-	
-	void message (std::string a);
-	
-	std::vector<int> choose_point ();	
-
-	int innum ();
-	
-	textio ();
 };
 
 #endif
