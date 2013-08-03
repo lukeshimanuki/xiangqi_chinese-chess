@@ -586,3 +586,8 @@ xiangqi::xiangqi ()
 {
 
 }
+
+xiangqi::~xiangqi ()
+{
+
+}

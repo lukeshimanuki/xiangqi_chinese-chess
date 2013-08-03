@@ -113,8 +113,11 @@ int dobutsu_shogi::winner (bool t) //t = whose turn it is
 
 double dobutsu_shogi::value (bool p)
 {
+	std::vector<int> v(2, 0);
 	int o = !p - p;
 	const double w = 100000000;
+	
+	// winning clause
 	int win = winner(p);
 	if (win != -1)
 	{
@@ -127,18 +130,35 @@ double dobutsu_shogi::value (bool p)
 			return  1 / w;
 		}
 	}
+	
+	// options clause
 	std::vector<std::vector<int> > v0, v1;
 	valid_moves(v0, p);
+	for (int i = 0; i < v0.size(); i ++)
+	{
+		if (v0[i][1] <= 2)
+		{
+			v[0] += 1;
+		}
+	}
 	valid_moves(v1, !p);
-	std::vector<int> v;
-	v.push_back(v0.size());
-	v.push_back(v1.size());
+	for (int i = 0; i < v1.size(); i ++)
+	{
+		if (v1[i][1] <= 2)
+		{
+			v[1] += 1;
+		}
+	}
+	
+	// pieces clause
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 3; j ++)
 		{
 			switch (board[i][j] * o)
 			{
+				case 1:
+					v[0] += 50;
 				case 2:
 					v[0] += 3;
 					break;
@@ -156,6 +176,8 @@ double dobutsu_shogi::value (bool p)
 			}
 			switch (board[i][j] * -o)
 			{
+				case 1:
+					v[1] += 50;
 				case 2:
 					v[1] += 3;
 					break;
@@ -304,6 +326,11 @@ void dobutsu_shogi::valid_moves (std::vector<std::vector<int> > &val_moves, bool
 }
 
 dobutsu_shogi::dobutsu_shogi ()
+{
+
+}
+
+dobutsu_shogi::~dobutsu_shogi ()
 {
 
 }

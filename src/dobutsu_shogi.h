@@ -20,6 +20,7 @@ public:
 	int winner (bool t);
 
 	dobutsu_shogi();
+	~dobutsu_shogi();
 };
 
 #endif

@@ -20,6 +20,7 @@ public:
 	int winner (bool t);
 
 	xiangqi();
+	~xiangqi();
 };
 
 #endif

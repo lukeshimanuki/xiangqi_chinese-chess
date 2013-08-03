@@ -11,7 +11,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		std::exit(1); //and exit
 	}
 	// filter
-	const double threshold = 0.9; // threshold to filter out obviously bad moves
+	const double threshold = 0.8; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
@@ -24,6 +24,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		{
 			max1 = v[i];
 		}
+		delete new_pos;
 	}
 	int j = 0;
 	for (unsigned int i = 0; i - j < val.size(); i ++)
@@ -48,6 +49,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 			max2 = value;
 			best = val[i];
 		}
+		delete new_pos;
 	}
 	return best;
 }
@@ -63,16 +65,16 @@ double computer::recurse_val(position &pos, bool p, int d)
 	int winner = pos.winner(p);
 	if (winner == p)
 	{
-		return w;
+		return w * d;
 	}
 	if (winner == !p)
 	{
-		return 1 / w;
+		return 1 / w / d;
 	}
 	std::vector<std::vector<int> > val;
 	pos.valid_moves(val, p);
 	// filter
-	const double threshold = 0.9; // threshold to filter out obviously bad moves
+	const double threshold = 0.8; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
@@ -85,6 +87,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 		{
 			max1 = v[i];
 		}
+		delete new_pos;
 	}
 	int j = 0;
 	for (unsigned int i = 0; i - j < val.size(); i ++)
@@ -107,6 +110,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 		{
 			max2 = value;
 		}
+		delete new_pos;
 	}
 	return max2;
 }

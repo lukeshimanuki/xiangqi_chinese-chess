@@ -20,6 +20,8 @@ public:
 	
 	bool turn;
 	
+	int turncount;
+	
 	position *pos;
 	
 	void set_game_type (int t);
@@ -37,6 +39,7 @@ public:
 	void log_move (std::vector<int> mov);
 	
 	game ();
+	~game ();
 };
 
 #endif

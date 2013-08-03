@@ -30,6 +30,7 @@ void game::initialize () // decides if set board with initial position or empty
 {
 	pos->initialize();
 	turn = 0;
+	turncount = 0;
 }
 
 void game::take_turn ()
@@ -37,6 +38,7 @@ void game::take_turn ()
 	std::vector<int> mov = players[turn]->choose_move(*pos, turn);
 	pos->move(mov);
 	log_move(mov);
+	turncount += 1;
 }
 
 void game::play ()
@@ -46,7 +48,7 @@ void game::play ()
 		int winner = pos->winner(turn);
 		if (winner != -1)
 		{
-			std::cout<<"Player "<<winner<<" won!\n\n";
+			std::cout<<"Player "<<winner<<" won in "<<turncount<<" turns!\n\n";
 			std::exit(0);
 		}
 		take_turn();
@@ -112,4 +114,9 @@ void game::log_move (std::vector<int> mov)
 game::game ()
 {
 
+}
+
+game::~game ()
+{
+	delete pos;
 }

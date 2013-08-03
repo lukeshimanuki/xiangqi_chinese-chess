@@ -21,3 +21,8 @@ position::position ()
 {
 
 }
+
+position::~position ()
+{
+
+}

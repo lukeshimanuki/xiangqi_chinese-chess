@@ -26,6 +26,7 @@ public:
 	void set_moves (std::vector<position*> &val_pos, std::vector<std::vector<int> > &vec, bool player);
 	
 	position ();
+	virtual ~position () = 0;
 };
 
 #endif
