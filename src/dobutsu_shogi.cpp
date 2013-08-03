@@ -13,15 +13,15 @@ void dobutsu_shogi::initialize ()
 	 * positive = player 0
 	 * negative = player 1
 	 */
-	int initialboard [4][7] =
-		{{	2,1,3,0,0,0,0		},
-		{	0,4,0,0,0,0,0		},
-		{	0,-4,0,0,0,0,0		},
-		{	-3,-1,-2,0,0,0,0	}};
+	int initialboard [4][3] =
+		{{	2,1,3	},
+		{	0,4,0	},
+		{	0,-4,0	},
+		{	-3,-1,-2	}};
 	for (int i = 0; i < 4; i ++)
 	{
 		board.push_back(std::vector<int>());
-		for (int j = 0; j < 7; j ++)
+		for (int j = 0; j < 3; j ++)
 		{
 			board[i].push_back(initialboard[i][j]);
 		}
@@ -31,6 +31,48 @@ void dobutsu_shogi::initialize ()
 int dobutsu_shogi::game_type()
 {
 	return 1;
+}
+
+void dobutsu_shogi::move(std::vector<int> &vec)
+{
+	bool p = (board[vec[0]][vec[1]] < 0);
+	int o = !p - p;
+	if (vec[1] >= 3) // drop
+	{
+		int c = board[vec[0]][vec[1]];
+		board[vec[0]].erase(board[vec[0]].begin() + vec[1]);
+		board[vec[2]][vec[3]] = c;
+	}
+	else if ((board[vec[0]][vec[1]] * o == 4) && (vec[2] == 3 * !p)) //chick promotes
+	{
+		if (board[vec[2]][vec[3]] == 0) // move and promote
+		{
+			board[vec[0]][vec[1]] = 0;
+			board[vec[2]][vec[3]] = 5 * (!p - p);
+		}
+		else // capture and promote
+		{
+			board[p].push_back(0 - board[vec[2]][vec[3]]);
+			board[vec[0]][vec[1]] = 0;
+			board[vec[2]][vec[3]] = 5 * (!p - p);
+		}
+	}
+	else // no promote or drop
+	{
+		if (board[vec[2]][vec[3]] == 0) // regular move
+		{
+			int c = board[vec[0]][vec[1]];
+			board[vec[0]][vec[1]] = 0;
+			board[vec[2]][vec[3]] = c;
+		}
+		else // capture
+		{
+			board[p].push_back(0 - board[vec[2]][vec[3]]);
+			int c = board[vec[0]][vec[1]];
+			board[vec[0]][vec[1]] = 0;
+			board[vec[2]][vec[3]] = c;
+		}
+	}
 }
 
 int dobutsu_shogi::winner (bool t) //t = whose turn it is
@@ -93,7 +135,7 @@ double dobutsu_shogi::value (bool p)
 	v.push_back(v1.size());
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 7; j ++)
+		for (int j = 0; j < 3; j ++)
 		{
 			switch (board[i][j] * o)
 			{
@@ -237,6 +279,25 @@ void dobutsu_shogi::valid_moves (std::vector<std::vector<int> > &val_moves, bool
 						}
 					}
 					break;
+			}
+		}
+	}
+	//drop
+	for (unsigned int i = 3; i < board[p].size(); i ++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			for (int k = 0; k < 3; k ++)
+			{
+				if (board[j][k] == 0)
+				{
+					std::vector<int> list;
+					list.push_back(p);
+					list.push_back(i);
+					list.push_back(j);
+					list.push_back(k);
+					val_moves.push_back(list);
+				}
 			}
 		}
 	}

@@ -5,13 +5,6 @@ void position::copy (position &pos)
 	pos.board = board;
 }
 
-void position::move(std::vector<int> &vec)
-{
-	int c = board[vec[0]][vec[1]];
-	board[vec[0]][vec[1]] = 0;
-	board[vec[2]][vec[3]] = c;
-}
-
 void position::set_moves (std::vector<position*> &val_pos, std::vector<std::vector<int> > &vec, bool p)
 {
 	val_pos.clear();

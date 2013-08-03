@@ -21,7 +21,7 @@ public:
 	
 	void copy (position &pos);
 	
-	void move(std::vector<int> &vec);
+	virtual void move(std::vector<int> &vec) = 0;
 	
 	void set_moves (std::vector<position*> &val_pos, std::vector<std::vector<int> > &vec, bool player);
 	

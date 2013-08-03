@@ -10,6 +10,8 @@ public:
 	int game_type();
 	
 	double value (bool p);
+	
+	void move(std::vector<int> &vec);
 
 	void valid_moves (std::vector<std::vector<int> > &vec, bool player);
 	

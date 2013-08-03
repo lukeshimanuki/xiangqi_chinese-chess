@@ -61,6 +61,13 @@ double xiangqi::value (bool p)
 	return (v0.size() + e) / (v1.size() + e);
 }
 
+void xiangqi::move(std::vector<int> &vec)
+{
+	int c = board[vec[0]][vec[1]];
+	board[vec[0]][vec[1]] = 0;
+	board[vec[2]][vec[3]] = c;
+}
+
 void xiangqi::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative
 {
 	val_moves.clear();
