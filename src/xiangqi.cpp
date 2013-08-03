@@ -52,6 +52,15 @@ int xiangqi::winner (bool t) //t = whose turn it is
 	return -1;
 }
 
+double xiangqi::value (bool p)
+{
+	const double e = 0.0000001;// prevents divide by 0
+	std::vector<std::vector<int> > v0, v1;
+	valid_moves(v0, p);
+	valid_moves(v1, !p);
+	return (v0.size() + e) / (v1.size() + e);
+}
+
 void xiangqi::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative
 {
 	val_moves.clear();

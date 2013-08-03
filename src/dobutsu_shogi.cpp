@@ -35,27 +35,103 @@ int dobutsu_shogi::game_type()
 
 int dobutsu_shogi::winner (bool t) //t = whose turn it is
 {
-	int o = !t - t;
-	bool has_lion = false;
+	bool has_lion0 = false, has_lion1 = false;
 	for (int i = 0; i < 4; i ++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			if (board[i][j] == o) //player's lion
+			if (board[i][j] == 1)
 			{
-				if (i == (3 + 2 * o) / 2) //on back row
+				if (i == 3)
 				{
-					return t;
+					return 0;
 				}
-				has_lion = true;
+				has_lion0 = true;
+			}
+			if (board[i][j] == -1)
+			{
+				if (i == 0)
+				{
+					return 1;
+				}
+				has_lion1 = true;
 			}
 		}
 	}
-	if (!has_lion) // player doesn't have a lion
+	if (!has_lion0)
 	{
-		return !t; // enemy wins
+		return 1;
+	}
+	if (!has_lion1)
+	{
+		return 0;
 	}
 	return -1;
+}
+
+double dobutsu_shogi::value (bool p)
+{
+	int o = !p - p;
+	const double w = 100000000;
+	int win = winner(p);
+	if (win != -1)
+	{
+		if (win == p)
+		{
+			return w;
+		}
+		if (win == !p)
+		{
+			return  1 / w;
+		}
+	}
+	std::vector<std::vector<int> > v0, v1;
+	valid_moves(v0, p);
+	valid_moves(v1, !p);
+	std::vector<int> v;
+	v.push_back(v0.size());
+	v.push_back(v1.size());
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 7; j ++)
+		{
+			switch (board[i][j] * o)
+			{
+				case 2:
+					v[0] += 3;
+					break;
+				case 3:
+					v[0] += 3;
+					break;
+				case 4:
+					v[0] += 1;
+					break;
+				case 5:
+					v[0] += 5;
+					break;
+				default:
+					break;
+			}
+			switch (board[i][j] * -o)
+			{
+				case 2:
+					v[1] += 3;
+					break;
+				case 3:
+					v[1] += 3;
+					break;
+				case 4:
+					v[1] += 1;
+					break;
+				case 5:
+					v[1] += 5;
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	return (v[0] + 1 / w) / (v[1] + 1 / w);
 }
 
 void dobutsu_shogi::valid_moves (std::vector<std::vector<int> > &val_moves, bool p) // p: 0 = black/top/positive; 1 = red/bottom/negative

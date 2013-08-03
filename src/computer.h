@@ -23,8 +23,6 @@ public:
 
 	std::vector<int> choose_move (position &pos, bool p);
 
-	double value (position &pos, bool p);
-
 	computer ();
 };
 

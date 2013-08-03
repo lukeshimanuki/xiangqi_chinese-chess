@@ -9,6 +9,8 @@ public:
 
 	int game_type();
 
+	double value (bool p);
+
 	void valid_moves (std::vector<std::vector<int> > &vec, bool player);
 	
 	void initialize ();

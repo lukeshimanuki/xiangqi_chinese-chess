@@ -1,32 +1,38 @@
 #include "game.h"
 
 #include <iostream>
+#include <stdlib.h>
 
 int main (int argc, char **argv)
 {
-	game g;
-	if (argc >= 2)
+	std::vector<long int> args;
+	for (int i = 1; i < argc; i ++)
 	{
-		g.set_game_type(argv[1][0] - 48);
+		args.push_back(strtol(argv[i], NULL, 10));
+	}
+	game g;
+	if (args.size() >= 1)
+	{
+		g.set_game_type(args[0]);
 	}
 	else
 	{
 		g.set_game_type(0);
 	}
 	g.initialize();
-	if (argc >= 4)
+	if (args.size() >= 3)
 	{
-		g.set_players(argv[2][0] - 48, argv[3][0] - 48);
+		g.set_players(args[1], args[2]);
 	}
 	else
 	{
 		g.set_players(0, 0);
 
 	}
-	if (argc >= 6)
+	if (args.size() >= 5)
 	{
-		g.players[0]->set_type(argv[4][0] - 48);
-		g.players[1]->set_type(argv[5][0] - 48);
+		g.players[0]->set_type(args[3]);
+		g.players[1]->set_type(args[4]);
 	}
 	else
 	{

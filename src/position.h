@@ -15,15 +15,15 @@ public:
 	
 	virtual int winner (bool t) = 0;
 	
-	virtual int game_type();
+	virtual int game_type() = 0;
+	
+	virtual double value (bool p) = 0;
 	
 	void copy (position &pos);
 	
 	void move(std::vector<int> &vec);
 	
 	void set_moves (std::vector<position*> &val_pos, std::vector<std::vector<int> > &vec, bool player);
-
-
 	
 	position ();
 };

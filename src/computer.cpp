@@ -19,7 +19,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
-		v.push_back(value(*new_pos, p));
+		v.push_back(new_pos->value(p));
 		if (v[i] > max1)
 		{
 			max1 = v[i];
@@ -55,16 +55,22 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 // game position, which player, how deep to recurse
 double computer::recurse_val(position &pos, bool p, int d)
 {
+	const double w = 10000000;
 	if (d == 0) //reached end of recursion
 	{
-		return value(pos, p);
+		return pos.value(p);
+	}
+	int winner = pos.winner(p);
+	if (winner == p)
+	{
+		return w;
+	}
+	if (winner == !p)
+	{
+		return 1 / w;
 	}
 	std::vector<std::vector<int> > val;
 	pos.valid_moves(val, p);
-	if (val.size() == 0) //you have no moves
-	{
-		return 0.00000001; // you lose, so very bad position
-	}
 	// filter
 	const double threshold = 0.9; // threshold to filter out obviously bad moves
 	double max1 = 0;
@@ -74,7 +80,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
-		v.push_back(value(*new_pos, p));
+		v.push_back(new_pos->value(p));
 		if (v[i] > max1)
 		{
 			max1 = v[i];
@@ -103,15 +109,6 @@ double computer::recurse_val(position &pos, bool p, int d)
 		}
 	}
 	return max2;
-}
-
-double computer::value (position & pos, bool p)
-{
-	const double e = 0.0000001;// prevents divide by 0
-	std::vector<std::vector<int> > v0, v1;
-	pos.valid_moves(v0, p);
-	pos.valid_moves(v1, !p);
-	return (v0.size() + e) / (v1.size() + e);
 }
 
 position* computer::new_position (int type)
