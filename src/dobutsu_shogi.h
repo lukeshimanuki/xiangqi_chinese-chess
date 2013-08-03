@@ -1,9 +1,9 @@
-#ifndef XIANGQI_H__
-#define XIANGQI_H__
+#ifndef DOBUTSU_SHOGI_H__
+#define DOBUTSU_SHOGI_H__
 
 #include "position.h"
 
-class xiangqi : public position
+class dobutsu_shogi : public position
 {
 public:
 
@@ -15,7 +15,7 @@ public:
 	
 	int winner (bool t);
 
-	xiangqi();
+	dobutsu_shogi();
 };
 
 #endif

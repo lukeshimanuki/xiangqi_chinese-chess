@@ -16,7 +16,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position *new_pos = new xiangqi;
+		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
 		v.push_back(value(*new_pos, p));
@@ -39,7 +39,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	std::vector<int> best;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position *new_pos = new xiangqi;
+		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
 		const double value = 1 / recurse_val(*new_pos, !p, depth);
@@ -71,7 +71,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position *new_pos = new xiangqi;
+		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
 		v.push_back(value(*new_pos, p));
@@ -93,7 +93,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 	double max2 = 0;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position *new_pos = new xiangqi;
+		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
 		const double value = 1 / recurse_val(*new_pos, !p, d - 1);
@@ -112,6 +112,19 @@ double computer::value (position & pos, bool p)
 	pos.valid_moves(v0, p);
 	pos.valid_moves(v1, !p);
 	return (v0.size() + e) / (v1.size() + e);
+}
+
+position* computer::new_position (int type)
+{
+	switch (type)
+	{
+		case 0:
+			return new xiangqi;
+		case 1:
+			return new dobutsu_shogi;
+		default:
+			return new xiangqi;
+	}
 }
 
 int computer::player_type ()

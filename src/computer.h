@@ -6,6 +6,7 @@
 
 #include "player.h"
 #include "xiangqi.h"
+#include "dobutsu_shogi.h"
 
 class computer : public player
 {
@@ -15,6 +16,8 @@ public:
 	int depth;
 
 	void set_type (int t);
+	
+	position *new_position (int type);
 
 	double recurse_val(position &pos, bool p, int d);
 

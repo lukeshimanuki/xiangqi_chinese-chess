@@ -3,6 +3,18 @@
 void xiangqi::initialize ()
 {
 	board.clear();
+	
+	/* 0 = empty
+	 * 1 = general
+	 * 2 = advisor
+	 * 3 = elephant
+	 * 4 = horse
+	 * 5 = chariot
+	 * 6 = cannon
+	 * 7 = soldier
+	 * positive = player 0
+	 * negative = player 1
+	 */
 	int initialboard [10][9] =
 		{{	5,4,3,2,1,2,3,4,5		},
 		{	0,0,0,0,0,0,0,0,0		},
@@ -24,7 +36,10 @@ void xiangqi::initialize ()
 	}
 }
 
-
+int xiangqi::game_type()
+{
+	return 0;
+}
 
 int xiangqi::winner (bool t) //t = whose turn it is
 {

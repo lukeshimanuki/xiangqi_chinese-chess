@@ -24,11 +24,7 @@ void position::set_moves (std::vector<position*> &val_pos, std::vector<std::vect
 	}
 }
 
-// x is rows, y is columns
 position::position ()
-{/*
-	std::vector<int> p (y, 0);
-	std::vector<std::vector<int> > q (x, p);
-	board = q;
-*/
+{
+
 }
