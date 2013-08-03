@@ -20,19 +20,19 @@ public:
 	 */
 	std::vector<std::vector<int> > board;
 	
-	void valid_moves (std::vector<std::vector<int> > &vec, bool player);
+	virtual void valid_moves (std::vector<std::vector<int> > &vec, bool player) = 0;
 	
-	std::vector<position> val_pos;
+	virtual void initialize () = 0;
+	
+	virtual int winner (bool t) = 0;
 	
 	void copy (position &pos);
 	
 	void move(std::vector<int> &vec);
 	
-	void set_moves (std::vector<position> &val_pos, std::vector<std::vector<int> > &vec, bool player);
+	void set_moves (std::vector<position*> &val_pos, std::vector<std::vector<int> > &vec, bool player);
 
-	void initialize (std::vector<std::vector<int> > initialposition);
 
-	int winner (bool t);
 	
 	position ();
 };

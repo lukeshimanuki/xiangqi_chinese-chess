@@ -16,10 +16,10 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position new_pos;
-		pos.copy(new_pos);
-		new_pos.move(val[i]);
-		v.push_back(value(new_pos, p));
+		position *new_pos = new xiangqi;
+		pos.copy(*new_pos);
+		new_pos->move(val[i]);
+		v.push_back(value(*new_pos, p));
 		if (v[i] > max1)
 		{
 			max1 = v[i];
@@ -39,10 +39,10 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	std::vector<int> best;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position new_pos;
-		pos.copy(new_pos);
-		new_pos.move(val[i]);
-		const double value = 1 / recurse_val(new_pos, !p, depth);
+		position *new_pos = new xiangqi;
+		pos.copy(*new_pos);
+		new_pos->move(val[i]);
+		const double value = 1 / recurse_val(*new_pos, !p, depth);
 		if (value >= max2)
 		{
 			max2 = value;
@@ -66,15 +66,15 @@ double computer::recurse_val(position &pos, bool p, int d)
 		return 0.00000001; // you lose, so very bad position
 	}
 	// filter
-	const double threshold = 0.6; // threshold to filter out obviously bad moves
+	const double threshold = 0.9; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position new_pos;
-		pos.copy(new_pos);
-		new_pos.move(val[i]);
-		v.push_back(value(new_pos, p));
+		position *new_pos = new xiangqi;
+		pos.copy(*new_pos);
+		new_pos->move(val[i]);
+		v.push_back(value(*new_pos, p));
 		if (v[i] > max1)
 		{
 			max1 = v[i];
@@ -93,10 +93,10 @@ double computer::recurse_val(position &pos, bool p, int d)
 	double max2 = 0;
 	for (unsigned int i = 0; i < val.size(); i++)
 	{
-		position new_pos;
-		pos.copy(new_pos);
-		new_pos.move(val[i]);
-		const double value = 1 / recurse_val(new_pos, !p, d - 1);
+		position *new_pos = new xiangqi;
+		pos.copy(*new_pos);
+		new_pos->move(val[i]);
+		const double value = 1 / recurse_val(*new_pos, !p, d - 1);
 		if (value > max2)
 		{
 			max2 = value;

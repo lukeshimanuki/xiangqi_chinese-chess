@@ -8,9 +8,9 @@ void textio::draw (position &pos)
 	{
 		std::cout<<'\n';
 	}
-	for (int i = 0; i < pos.board.size(); i ++)
+	for (unsigned int i = 0; i < pos.board.size(); i ++)
 	{
-		for (int j = 0; j < pos.board[i].size(); j ++)
+		for (unsigned int j = 0; j < pos.board[i].size(); j ++)
 		{
 			std::cout << '[';
 			if (pos.board[i][j] > 0)

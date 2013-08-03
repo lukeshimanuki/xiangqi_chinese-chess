@@ -5,6 +5,7 @@
 #include <cstdlib>
 
 #include "player.h"
+#include "xiangqi.h"
 
 class computer : public player
 {

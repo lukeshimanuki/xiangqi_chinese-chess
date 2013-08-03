@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS  = -g -c -O3 -Wall
+CFLAGS  = -ggdb -c -O3 -Wall -std=c++11
 LDFLAGS =
 
 EXECUTABLE = xiangqi

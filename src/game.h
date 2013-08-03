@@ -9,6 +9,7 @@
 #include "position.h"
 #include "person.h"
 #include "computer.h"
+#include "xiangqi.h"
 
 class game
 {
@@ -19,17 +20,15 @@ public:
 	
 	bool turn;
 	
-	position pos;
+	position *pos;
+	
+	void set_game_type (int t);
 	
 	void take_turn ();
 	
 	void play ();
 	
 	void set_players (int a, int b);
-	
-	void valid_moves (std::vector<std::vector<int> > &vec, position &pos, bool player);
-	
-	int winner (position &pos, bool t);
 	
 	void initialize ();
 	

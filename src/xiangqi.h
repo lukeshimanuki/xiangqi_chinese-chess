@@ -1,11 +1,18 @@
 #ifndef XIANGQI_H__
 #define XIANGQI_H__
 
-#include "game.h"
+#include "position.h"
 
-class xiangqi : public game
+class xiangqi : public position
 {
 public:
+
+	void valid_moves (std::vector<std::vector<int> > &vec, bool player);
+	
+	void initialize ();
+	
+	int winner (bool t);
+
 	xiangqi();
 };
 

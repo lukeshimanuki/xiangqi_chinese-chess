@@ -1,30 +1,38 @@
-#include "xiangqi.h"
+#include "game.h"
 
 #include <iostream>
 
 int main (int argc, char **argv)
 {
-	xiangqi x;
-	x.initialize();
-	if (argc >= 3)
+	game g;
+	if (argc >= 2)
 	{
-		x.set_players(argv[1][0] - 48, argv[2][0] - 48);
+		g.set_game_type(argv[1][0] - 48);
 	}
 	else
 	{
-		x.set_players(0, 0);
+		g.set_game_type(0);
+	}
+	g.initialize();
+	if (argc >= 4)
+	{
+		g.set_players(argv[2][0] - 48, argv[3][0] - 48);
+	}
+	else
+	{
+		g.set_players(0, 0);
 
 	}
-	if (argc >= 5)
+	if (argc >= 6)
 	{
-		x.players[0]->set_type(argv[3][0] - 48);
-		x.players[1]->set_type(argv[4][0] - 48);
+		g.players[0]->set_type(argv[4][0] - 48);
+		g.players[1]->set_type(argv[5][0] - 48);
 	}
 	else
 	{
-		x.players[0]->set_type(0);
-		x.players[1]->set_type(0);
+		g.players[0]->set_type(0);
+		g.players[1]->set_type(0);
 	}
-	x.set_log("xiangqi.log");
-	x.play();
+	g.set_log("xiangqi.log");
+	g.play();
 }
