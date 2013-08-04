@@ -13,7 +13,9 @@ public:
 	
 	virtual int player_type () = 0;
 	
-	virtual void set_type (int t) = 0;
+	virtual void set_options (std::vector<double> &o) = 0;
+	
+	std::vector<double> options;
 
 	player()
 	{

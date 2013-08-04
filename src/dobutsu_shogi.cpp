@@ -73,6 +73,10 @@ void dobutsu_shogi::move(std::vector<int> &vec)
 			board[vec[2]][vec[3]] = c;
 		}
 	}
+	if ((board[p].size() >= 4) && (board[p][board[p].size() - 1] * o == 5)) // if chicken is captured
+	{
+		board[p][board[p].size() - 1] -= o; // turn it into a chick
+	}
 }
 
 int dobutsu_shogi::winner (bool t) //t = whose turn it is
@@ -134,7 +138,7 @@ double dobutsu_shogi::value (bool p)
 	// options clause
 	std::vector<std::vector<int> > v0, v1;
 	valid_moves(v0, p);
-	for (int i = 0; i < v0.size(); i ++)
+	for (unsigned int i = 0; i < v0.size(); i ++)
 	{
 		if (v0[i][1] <= 2)
 		{
@@ -142,7 +146,7 @@ double dobutsu_shogi::value (bool p)
 		}
 	}
 	valid_moves(v1, !p);
-	for (int i = 0; i < v1.size(); i ++)
+	for (unsigned int i = 0; i < v1.size(); i ++)
 	{
 		if (v1[i][1] <= 2)
 		{

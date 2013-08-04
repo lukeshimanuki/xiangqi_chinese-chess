@@ -11,7 +11,6 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		std::exit(1); //and exit
 	}
 	// filter
-	const double threshold = 0.8; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
@@ -29,7 +28,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 	int j = 0;
 	for (unsigned int i = 0; i - j < val.size(); i ++)
 	{
-		if (v[i] < max1 * threshold)
+		if (v[i] < max1 * options[1])
 		{
 			val.erase(val.begin() + i - j);
 			j++;
@@ -43,7 +42,7 @@ std::vector<int> computer::choose_move(position &pos, bool p)
 		position *new_pos = new_position(pos.game_type());
 		pos.copy(*new_pos);
 		new_pos->move(val[i]);
-		const double value = 1 / recurse_val(*new_pos, !p, depth);
+		const double value = 1 / recurse_val(*new_pos, !p, options[0]);
 		if (value >= max2)
 		{
 			max2 = value;
@@ -74,7 +73,6 @@ double computer::recurse_val(position &pos, bool p, int d)
 	std::vector<std::vector<int> > val;
 	pos.valid_moves(val, p);
 	// filter
-	const double threshold = 0.8; // threshold to filter out obviously bad moves
 	double max1 = 0;
 	std::vector<double> v;
 	for (unsigned int i = 0; i < val.size(); i++)
@@ -92,7 +90,7 @@ double computer::recurse_val(position &pos, bool p, int d)
 	int j = 0;
 	for (unsigned int i = 0; i - j < val.size(); i ++)
 	{
-		if (v[i] < max1 * threshold)
+		if (v[i] < max1 * options[2])
 		{
 			val.erase(val.begin() + i - j);
 			j++;
@@ -133,9 +131,9 @@ int computer::player_type ()
 	return 1;
 }
 
-void computer::set_type (int t)
+void computer::set_options (std::vector<double> &o)
 {
-	depth = t;
+	options = o;
 }
 
 computer::computer()

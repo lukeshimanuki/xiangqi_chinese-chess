@@ -11,9 +11,10 @@ class person : public player
 {
 public:
 	int player_type ();
-	void set_type (int t);
-
-	int io_type; // 0 = text
+	
+	// options: {io}
+	void set_options (std::vector<double> &o);
+	
 	std::vector<int> choose_move (position &pos, bool p);
 	
 	std::vector<io*> in_out;

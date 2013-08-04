@@ -13,9 +13,8 @@ class computer : public player
 public:
 	int player_type ();
 
-	int depth;
-
-	void set_type (int t);
+	// options: {depth, threshold, recursive threshold}
+	void set_options (std::vector<double> &o);
 	
 	position *new_position (int type);
 
